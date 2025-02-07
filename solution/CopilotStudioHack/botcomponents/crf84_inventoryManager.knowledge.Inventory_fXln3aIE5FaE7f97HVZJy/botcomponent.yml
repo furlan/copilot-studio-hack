@@ -1,0 +1,8 @@
+botcomponent:
+  '@schemaname': crf84_inventoryManager.knowledge.Inventory_fXln3aIE5FaE7f97HVZJy
+  componenttype: 16
+  description: 'This knowledge source answers questions found in the following Dataverse tables: Inventory'
+  iscustomizable: 0
+  name: Inventory
+  parentbotid:
+    schemaname: crf84_inventoryManager

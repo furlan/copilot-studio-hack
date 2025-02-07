@@ -1,0 +1,4 @@
+botcomponent_connectionreference:
+  '@botcomponentid.schemaname': crf84_inventoryManager.topic.Updateinventory
+  '@connectionreferenceid.connectionreferencelogicalname': crf84_inventoryManager.shared_commondataserviceforapps.shared-commondataser-9735b622-db59-4162-82ed-cb5eeef5f0f3
+  iscustomizable: 1

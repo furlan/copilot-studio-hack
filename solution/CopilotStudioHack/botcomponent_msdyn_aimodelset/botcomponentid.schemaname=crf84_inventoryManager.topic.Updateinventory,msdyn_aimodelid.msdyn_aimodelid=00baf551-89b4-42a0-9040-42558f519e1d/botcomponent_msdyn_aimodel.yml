@@ -1,0 +1,4 @@
+botcomponent_msdyn_aimodel:
+  '@botcomponentid.schemaname': crf84_inventoryManager.topic.Updateinventory
+  '@msdyn_aimodelid.msdyn_aimodelid': 00baf551-89b4-42a0-9040-42558f519e1d
+  iscustomizable: 1

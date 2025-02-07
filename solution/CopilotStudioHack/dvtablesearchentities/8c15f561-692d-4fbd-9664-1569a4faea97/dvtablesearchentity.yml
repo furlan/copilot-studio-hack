@@ -1,0 +1,9 @@
+dvtablesearchentity:
+  '@dvtablesearchentityid': 8c15f561-692d-4fbd-9664-1569a4faea97
+  dvtablesearch:
+    dvtablesearchid: 1c15824f-70db-4ea7-b7dd-f5525736c776
+  entitylogicalname: crf84_inventory
+  iscustomizable: 0
+  name: crf84_Inventory
+  statecode: 0
+  statuscode: 1

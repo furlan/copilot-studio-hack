@@ -1,0 +1,56 @@
+systemform:
+  formid: '{2ca82a90-f86c-42d8-8c50-a12e45745921}'
+  IntroducedVersion: 1.0
+  FormPresentation: 1
+  FormActivationState: 1
+  form:
+    tabs:
+      tab:
+        '@verticallayout': true
+        '@id': '{5e8277d6-1ffc-42f0-8f47-d8d5061c699a}'
+        '@IsUserDefined': 1
+        labels:
+          label:
+            '@description': ''
+            '@languagecode': 1033
+        columns:
+          column:
+            '@width': 100%
+            sections:
+              section:
+                '@showlabel': false
+                '@showbar': false
+                '@IsUserDefined': 0
+                '@id': '{aaa2701a-18e8-4b99-ab84-2ce29110a82b}'
+                labels:
+                  label:
+                    '@description': GENERAL
+                    '@languagecode': 1033
+                rows:
+                  row:
+                  - cell:
+                      '@id': '{eaaaec05-376b-4e50-ad64-15e060261c63}'
+                      labels:
+                        label:
+                          '@description': Material Name
+                          '@languagecode': 1033
+                      control:
+                        '@id': crf84_inventory1
+                        '@classid': '{4273EDBD-AC1D-40d3-9FB2-095C621B552D}'
+                        '@datafieldname': crf84_inventory1
+                  - cell:
+                      '@id': '{e3fcd281-f8a0-4227-a38f-c592a6335c3d}'
+                      labels:
+                        label:
+                          '@description': Owner
+                          '@languagecode': 1033
+                      control:
+                        '@id': ownerid
+                        '@classid': '{270BD3DB-D9AF-4782-9025-509E298DEC0A}'
+                        '@datafieldname': ownerid
+  IsCustomizable: 1
+  CanBeDeleted: 1
+  LocalizedNames:
+    LocalizedName:
+      '@description': Information
+      '@languagecode': 1033

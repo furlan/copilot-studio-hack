@@ -1,0 +1,44 @@
+savedquery:
+  IsCustomizable: 1
+  CanBeDeleted: 0
+  isquickfindquery: 0
+  isprivate: 0
+  isdefault: 1
+  savedqueryid: '{17aa8a6c-9117-4ecd-8d54-a59486ce42c3}'
+  layoutxml:
+    grid:
+      '@name': crf84_inventories
+      '@jump': crf84_inventory1
+      '@select': 1
+      '@icon': 1
+      '@preview': 0
+      row:
+        '@name': crf84_inventory
+        '@id': crf84_inventoryid
+        cell:
+        - '@name': crf84_inventory1
+          '@width': 300
+        - '@name': createdon
+          '@width': 125
+  querytype: 64
+  fetchxml:
+    fetch:
+      '@version': 1.0
+      '@mapping': logical
+      entity:
+        '@name': crf84_inventory
+        attribute:
+        - '@name': crf84_inventoryid
+        - '@name': crf84_inventory1
+        - '@name': createdon
+        filter:
+          '@type': and
+          condition:
+            '@attribute': statecode
+            '@operator': eq
+            '@value': 0
+  IntroducedVersion: 1.0
+  LocalizedNames:
+    LocalizedName:
+      '@description': Inventory Lookup View
+      '@languagecode': 1033

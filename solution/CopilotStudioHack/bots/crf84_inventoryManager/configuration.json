@@ -1,0 +1,19 @@
+{
+  "$kind": "BotConfiguration",
+  "settings": {
+    "GenerativeActionsEnabled": true
+  },
+  "gPTSettings": {
+    "$kind": "GPTSettings",
+    "defaultSchemaName": "crf84_inventoryManager.gpt.default"
+  },
+  "aISettings": {
+    "$kind": "AISettings",
+    "useModelKnowledge": false,
+    "isFileAnalysisEnabled": false,
+    "isSemanticSearchEnabled": false
+  },
+  "recognizer": {
+    "$kind": "GenerativeAIRecognizer"
+  }
+}

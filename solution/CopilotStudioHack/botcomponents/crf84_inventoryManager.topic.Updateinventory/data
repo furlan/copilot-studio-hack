@@ -1,0 +1,362 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - update inventory
+      - inventory update
+      - change stock levels
+      - modify inventory
+      - adjust product quantities
+      - edit inventory list
+      - revise stock details
+      - refresh inventory data
+
+  actions:
+    - kind: InvokeAIBuilderModelAction
+      id: invokeAIBuilderModelAction_nJs1kC
+      input:
+        binding:
+          UserPrompt: =System.Activity.Text
+
+      output:
+        binding:
+          predictionOutput: Topic.UpdateInventory
+
+      aIModelId: 00baf551-89b4-42a0-9040-42558f519e1d
+
+    - kind: InvokeConnectorAction
+      id: invokeConnectorAction_zsDesc
+      input:
+        binding:
+          entityName: crf84_inventories
+          item: "={crf84_quantityinstock: Topic.UpdateInventory.structuredOutput.Quantity_in_Stock}"
+          organization: https://orgef90125d.crm.dynamics.com
+          recordId: =Topic.UpdateInventory.structuredOutput.Row_Id
+
+      output: {}
+      connectionReference: crf84_inventoryManager.shared_commondataserviceforapps.shared-commondataser-9735b622-db59-4162-82ed-cb5eeef5f0f3
+      connectionProperties:
+        mode: Invoker
+
+      dynamicInputSchema:
+        properties:
+          entityName:
+            displayName: Table name
+            description: Choose a table
+            isRequired: true
+            order: 1
+            dynamicValuesConfig:
+              capability: List
+
+            type: String
+
+          item:
+            displayName: Row Item
+            description: Row to update
+            isRequired: true
+            order: 3
+            type:
+              kind: Record
+              properties:
+                crf84_inventory1:
+                  displayName: Material Name
+                  order: 0
+                  type: String
+
+                crf84_quantityinstock:
+                  displayName: Quantity in Stock
+                  order: 2
+                  type: Number
+
+                crf84_stockthreshold:
+                  displayName: Stock Threshold
+                  order: 5
+                  type: Number
+
+                crf84_unitofmeasure:
+                  displayName: Unit of Measure
+                  order: 7
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                ownerid@odata.bind:
+                  displayName: Owner (Owners)
+                  description: Owner Id
+                  visibility: Advanced
+                  order: 1
+                  type: String
+
+                statecode:
+                  displayName: Status
+                  description: Status of the Inventory
+                  visibility: Advanced
+                  order: 3
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                statuscode:
+                  displayName: Status Reason
+                  description: Reason for the status of the Inventory
+                  visibility: Advanced
+                  order: 4
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                timezoneruleversionnumber:
+                  displayName: Time Zone Rule Version Number
+                  description: For internal use only.
+                  visibility: Advanced
+                  order: 6
+                  type: Number
+
+                utcconversiontimezonecode:
+                  displayName: UTC Conversion Time Zone Code
+                  description: Time zone code that was in use when the record was created.
+                  visibility: Advanced
+                  order: 8
+                  type: Number
+
+          organization:
+            displayName: Environment
+            description: Choose an environment
+            isRequired: true
+            order: 0
+            dynamicValuesConfig:
+              capability: List
+
+            type: String
+
+          recordId:
+            displayName: Row ID
+            description: Enter the row's globally unique identifier (GUID)
+            isRequired: true
+            order: 2
+            type: String
+
+      dynamicOutputSchema:
+        kind: Record
+        properties:
+          _createdby_value:
+            displayName: Created By (Value)
+            description: Unique identifier of the user who created the record.
+            visibility: Advanced
+            order: 3
+            type: String
+
+          _createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Created By (Type)
+            description: Unique identifier of the user who created the record.
+            visibility: Advanced
+            order: 2
+            type: String
+
+          _createdonbehalfby_value:
+            displayName: Created By (Delegate) (Value)
+            description: Unique identifier of the delegate user who created the record.
+            visibility: Advanced
+            order: 1
+            type: String
+
+          _createdonbehalfby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Created By (Delegate) (Type)
+            description: Unique identifier of the delegate user who created the record.
+            visibility: Advanced
+            order: 0
+            type: String
+
+          _modifiedby_value:
+            displayName: Modified By (Value)
+            description: Unique identifier of the user who modified the record.
+            visibility: Advanced
+            order: 11
+            type: String
+
+          _modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Modified By (Type)
+            description: Unique identifier of the user who modified the record.
+            visibility: Advanced
+            order: 10
+            type: String
+
+          _modifiedonbehalfby_value:
+            displayName: Modified By (Delegate) (Value)
+            description: Unique identifier of the delegate user who modified the record.
+            visibility: Advanced
+            order: 9
+            type: String
+
+          _modifiedonbehalfby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Modified By (Delegate) (Type)
+            description: Unique identifier of the delegate user who modified the record.
+            visibility: Advanced
+            order: 8
+            type: String
+
+          _ownerid_value:
+            displayName: Owner (Value)
+            description: Owner Id
+            visibility: Advanced
+            order: 15
+            type: String
+
+          _ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Owner (Type)
+            description: Owner Id
+            visibility: Advanced
+            order: 14
+            type: String
+
+          _owningbusinessunit_value:
+            displayName: Owning Business Unit (Value)
+            description: Unique identifier for the business unit that owns the record
+            order: 17
+            type: String
+
+          _owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Owning Business Unit (Type)
+            description: Unique identifier for the business unit that owns the record
+            order: 16
+            type: String
+
+          _owningteam_value:
+            displayName: Owning Team (Value)
+            description: Unique identifier for the team that owns the record.
+            visibility: Advanced
+            order: 19
+            type: String
+
+          _owningteam_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Owning Team (Type)
+            description: Unique identifier for the team that owns the record.
+            visibility: Advanced
+            order: 18
+            type: String
+
+          _owninguser_value:
+            displayName: Owning User (Value)
+            description: Unique identifier for the user that owns the record.
+            visibility: Advanced
+            order: 21
+            type: String
+
+          _owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+            displayName: Owning User (Type)
+            description: Unique identifier for the user that owns the record.
+            visibility: Advanced
+            order: 20
+            type: String
+
+          @odata.id:
+            displayName: OData Id
+            description: OData row id
+            order: 13
+            type: String
+
+          createdon:
+            displayName: Created On
+            description: Date and time when the record was created.
+            visibility: Advanced
+            order: 4
+            type: DateTime
+
+          crf84_inventory1:
+            displayName: Material Name
+            order: 7
+            type: String
+
+          crf84_inventoryid:
+            displayName: Inventory
+            description: Unique identifier for entity instances
+            visibility: Advanced
+            order: 6
+            type: String
+
+          crf84_quantityinstock:
+            displayName: Quantity in Stock
+            order: 22
+            type: Number
+
+          crf84_stockthreshold:
+            displayName: Stock Threshold
+            order: 26
+            type: Number
+
+          crf84_unitofmeasure:
+            displayName: Unit of Measure
+            order: 28
+            dynamicValuesConfig:
+              capability: List
+
+            type: Number
+
+          importsequencenumber:
+            displayName: Import Sequence Number
+            description: Sequence number of the import that created this record.
+            visibility: Advanced
+            order: 5
+            type: Number
+
+          modifiedon:
+            displayName: Modified On
+            description: Date and time when the record was modified.
+            visibility: Advanced
+            order: 12
+            type: DateTime
+
+          overriddencreatedon:
+            displayName: Record Created On
+            description: Date and time that the record was migrated.
+            visibility: Advanced
+            order: 23
+            type: DateTime
+
+          statecode:
+            displayName: Status
+            description: Status of the Inventory
+            visibility: Advanced
+            order: 24
+            dynamicValuesConfig:
+              capability: List
+
+            type: Number
+
+          statuscode:
+            displayName: Status Reason
+            description: Reason for the status of the Inventory
+            visibility: Advanced
+            order: 25
+            dynamicValuesConfig:
+              capability: List
+
+            type: Number
+
+          timezoneruleversionnumber:
+            displayName: Time Zone Rule Version Number
+            description: For internal use only.
+            visibility: Advanced
+            order: 27
+            type: Number
+
+          utcconversiontimezonecode:
+            displayName: UTC Conversion Time Zone Code
+            description: Time zone code that was in use when the record was created.
+            visibility: Advanced
+            order: 29
+            type: Number
+
+          versionnumber:
+            displayName: Version Number
+            description: Version Number
+            visibility: Advanced
+            order: 30
+            type: Number
+
+      operationId: UpdateOnlyRecordWithOrganization

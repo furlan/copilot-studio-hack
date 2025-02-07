@@ -1,0 +1,8 @@
+connectionreference:
+  '@connectionreferencelogicalname': crf84_inventoryManager.shared_commondataserviceforapps.shared-commondataser-9735b622-db59-4162-82ed-cb5eeef5f0f3
+  connectionreferencedisplayname: crf84_inventoryManager.shared_commondataserviceforapps.shared-commondataser-9735b622-db59-4162-82ed-cb5eeef5f0f3
+  connectorid: /providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps
+  iscustomizable: 0
+  promptingbehavior: 0
+  statecode: 0
+  statuscode: 1
