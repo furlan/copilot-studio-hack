@@ -17,10 +17,11 @@ steps:
     git clone https://$(AZDO_PAT)@dev.azure.com/copilotstudiohack/Copilot-Studio-Hack/_git/Copilot-Studio-Hack
     cd Copilot-Studio-Hack
     git remote add github https://$(GITHUB_TOKEN)@github.com/furlan/copilot-studio-hack.git
-    git config pull.rebase false  # merge
+    git fetch github main
+    git rebase github/main
     git pull
     git push github main
-  displayName: 'Push changes to GitHub'
+  displayName: 'Fetch, rebase, and push changes to GitHub'
   env:
     AZDO_PAT: $(AZDO_PAT)
     GITHUB_TOKEN: $(GITHUB_TOKEN)
