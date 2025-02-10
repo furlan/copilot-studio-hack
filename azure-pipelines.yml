@@ -18,7 +18,7 @@ steps:
     cd Copilot-Studio-Hack
     git remote add github https://$(GITHUB_TOKEN)@github.com/furlan/copilot-studio-hack.git
     git config pull.rebase false  # merge
-    git pull github main
+    git pull
     git push github main
   displayName: 'Push changes to GitHub'
   env:
