@@ -14,6 +14,11 @@ steps:
   persistCredentials: true
 
 - script: |
-    git remote add target https://github.com/furlan/copilot-studio-hack.git
-    git push target main
-  displayName: 'Push changes to target repository'
+    git clone https://copilotstudiohack@dev.azure.com/copilotstudiohack/Copilot-Studio-Hack/_git/Copilot-Studio-Hack
+    cd Copilot-Studio-Hack
+    git remote add github https://github.com/furlan/copilot-studio-hack.git
+    git push github main
+  displayName: 'Push changes to GitHub'
+  env:
+    GITHUB_TOKEN: $(GITHUB_TOKEN)
+
