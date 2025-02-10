@@ -17,6 +17,7 @@ steps:
     git clone https://$(AZDO_PAT)@dev.azure.com/copilotstudiohack/Copilot-Studio-Hack/_git/Copilot-Studio-Hack
     cd Copilot-Studio-Hack
     git remote add github https://$(GITHUB_TOKEN)@github.com/furlan/copilot-studio-hack.git
+    git config pull.rebase false  # merge
     git pull github main
     git push github main
   displayName: 'Push changes to GitHub'
