@@ -20,5 +20,6 @@ steps:
     git push github main
   displayName: 'Push changes to GitHub'
   env:
+    AZDO_PAT: $(AZDO_PAT)
     GITHUB_TOKEN: $(GITHUB_TOKEN)
 
