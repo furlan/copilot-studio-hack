@@ -14,7 +14,7 @@ steps:
   persistCredentials: true
 
 - script: |
-    git clone https://copilotstudiohack@dev.azure.com/copilotstudiohack/Copilot-Studio-Hack/_git/Copilot-Studio-Hack
+    git clone https://$(AZDO_PAT)@dev.azure.com/copilotstudiohack/Copilot-Studio-Hack/_git/Copilot-Studio-Hack
     cd Copilot-Studio-Hack
     git remote add github https://github.com/furlan/copilot-studio-hack.git
     git push github main
