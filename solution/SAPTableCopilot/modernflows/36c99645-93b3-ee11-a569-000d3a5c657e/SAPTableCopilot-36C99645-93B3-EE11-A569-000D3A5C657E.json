@@ -18,6 +18,15 @@
         "api": {
           "name": "shared_office365users"
         }
+      },
+      "shared_keyvault": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedkeyvault_4c1ee"
+        },
+        "api": {
+          "name": "shared_keyvault"
+        }
       }
     },
     "definition": {
@@ -31,22 +40,6 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
-        },
-        "AzureOpenAITableCopilotURL (cr680_AzureOpenAITableCopilotURL)": {
-          "defaultValue": "https://your-endpoint.openai.azure.com/openai/deployments/gpt-4-32k/chat/completions?api-version=2023-07-01-preview",
-          "type": "String",
-          "metadata": {
-            "schemaName": "cr680_AzureOpenAITableCopilotURL",
-            "description": "AzureOpenAITableCopilotURL"
-          }
-        },
-        "AzureOpenAITableCopilotKEY (cr680_AzureOpenAITableCopilotKEY)": {
-          "defaultValue": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          "type": "String",
-          "metadata": {
-            "schemaName": "cr680_AzureOpenAITableCopilotKEY",
-            "description": "AzureOpenAITableCopilotKEY"
-          }
         }
       },
       "triggers": {
@@ -86,7 +79,7 @@
       "actions": {
         "HTTP": {
           "runAfter": {
-            "Apply_to_each": [
+            "Get_secret_OpenAI_Key": [
               "Succeeded"
             ]
           },
@@ -96,10 +89,10 @@
           "type": "Http",
           "inputs": {
             "method": "POST",
-            "uri": "@parameters('AzureOpenAITableCopilotURL (cr680_AzureOpenAITableCopilotURL)')",
+            "uri": "@outputs('Get_secret_OpenAI_URI')?['body/value']",
             "headers": {
               "content-type": "application/json",
-              "api-key": "@parameters('AzureOpenAITableCopilotKEY (cr680_AzureOpenAITableCopilotKEY)')"
+              "api-key": "@outputs('Get_secret_OpenAI_Key')?['body/value']"
             },
             "body": {
               "messages": "@variables('Messages')",
@@ -465,10 +458,10 @@
                   "type": "Http",
                   "inputs": {
                     "method": "POST",
-                    "uri": "@parameters('AzureOpenAITableCopilotURL (cr680_AzureOpenAITableCopilotURL)')",
+                    "uri": "@outputs('Get_secret_OpenAI_URI')?['body/value']",
                     "headers": {
                       "content-type": "application/json",
-                      "api-key": "@parameters('AzureOpenAITableCopilotKEY (cr680_AzureOpenAITableCopilotKEY)')"
+                      "api-key": "@outputs('Get_secret_OpenAI_Key')?['body/value']"
                     },
                     "body": {
                       "messages": "@variables('Messages2')",
@@ -782,6 +775,50 @@
                 ]
               }
             ]
+          }
+        },
+        "Get_secret_OpenAI_URI": {
+          "runAfter": {
+            "Apply_to_each": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "2d7de17e-14d9-49f2-95c9-3f86aee2882b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_keyvault",
+              "operationId": "GetSecret",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_keyvault"
+            },
+            "parameters": {
+              "secretName": "kv-sct-openai-uri"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_secret_OpenAI_Key": {
+          "runAfter": {
+            "Get_secret_OpenAI_URI": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f4d9ea1b-897f-4dea-bfc7-805ad08e7074"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_keyvault",
+              "operationId": "GetSecret",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_keyvault"
+            },
+            "parameters": {
+              "secretName": "kv-sct-openai-key"
+            },
+            "authentication": "@parameters('$authentication')"
           }
         }
       },

@@ -1,1 +1,11 @@
-MissingDependencies: 
+MissingDependencies:
+  MissingDependency:
+    Required:
+      '@type': connectionreference
+      '@displayName': new_sharedkeyvault_4c1ee
+      '@solution': Active
+      '@id.connectionreferencelogicalname': new_sharedkeyvault_4c1ee
+    Dependent:
+      '@type': 29
+      '@displayName': SAP Table Copilot
+      '@id': '{36c99645-93b3-ee11-a569-000d3a5c657e}'
