@@ -1,0 +1,7 @@
+botcomponent:
+  '@schemaname': cr680_sapTable.topic.ResetConversation
+  componenttype: 9
+  iscustomizable: 0
+  name: Reset Conversation
+  parentbotid:
+    schemaname: cr680_sapTable

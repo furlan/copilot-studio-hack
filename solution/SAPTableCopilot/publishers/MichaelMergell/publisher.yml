@@ -1,0 +1,19 @@
+Publisher:
+  UniqueName: MichaelMergell
+  LocalizedNames:
+    LocalizedName:
+      '@description': MichaelMergell
+      '@languagecode': 1033
+  Descriptions:
+    Description:
+      '@description': SAPInteractionBotunmanaged
+      '@languagecode': 1033
+  EMailAddress:
+    '@xsi:nil': true
+    '@xmlns:xsi': http://www.w3.org/2001/XMLSchema-instance
+  SupportingWebsiteUrl:
+    '@xsi:nil': true
+    '@xmlns:xsi': http://www.w3.org/2001/XMLSchema-instance
+  CustomizationPrefix: sapbot
+  CustomizationOptionValuePrefix: 29659
+  Addresses: 

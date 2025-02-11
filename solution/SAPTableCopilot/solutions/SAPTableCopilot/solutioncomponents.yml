@@ -1,0 +1,22 @@
+SolutionComponents:
+  Component:
+  - '@path': /botcomponent_workflowset/botcomponentid.schemaname=cr680_sapTable.topic.Fallback,workflowid.workflowid=36c99645-93b3-ee11-a569-000d3a5c657e
+  - '@path': /botcomponents/cr680_sapTable.topic.ConversationStart
+  - '@path': /botcomponents/cr680_sapTable.topic.EndofConversation
+  - '@path': /botcomponents/cr680_sapTable.topic.Escalate
+  - '@path': /botcomponents/cr680_sapTable.topic.Fallback
+  - '@path': /botcomponents/cr680_sapTable.topic.Goodbye
+  - '@path': /botcomponents/cr680_sapTable.topic.Greeting
+  - '@path': /botcomponents/cr680_sapTable.topic.MultipleTopicsMatched
+  - '@path': /botcomponents/cr680_sapTable.topic.OnError
+  - '@path': /botcomponents/cr680_sapTable.topic.ResetConversation
+  - '@path': /botcomponents/cr680_sapTable.topic.Signin
+  - '@path': /botcomponents/cr680_sapTable.topic.StartOver
+  - '@path': /botcomponents/cr680_sapTable.topic.ThankYou
+  - '@path': /bots/cr680_sapTable
+  - '@path': /connectionreferences/new_sharedoffice365users_76334
+  - '@path': /connectionreferences/new_sharedsaperp_c23a3
+  - '@path': /environmentvariabledefinitions/cr680_AzureOpenAITableCopilotKEY
+  - '@path': /environmentvariabledefinitions/cr680_AzureOpenAITableCopilotURL
+  - '@path': /modernflows/36c99645-93b3-ee11-a569-000d3a5c657e
+  - '@path': /publishers/MichaelMergell
