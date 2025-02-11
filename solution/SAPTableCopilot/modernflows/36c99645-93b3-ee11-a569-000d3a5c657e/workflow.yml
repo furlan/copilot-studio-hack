@@ -13,8 +13,8 @@ Workflow:
   TriggerOnDelete: 0
   AsyncAutodelete: 0
   SyncWorkflowLogOnFailure: 0
-  StateCode: 0
-  StatusCode: 1
+  StateCode: 1
+  StatusCode: 2
   RunAs: 1
   IsTransacted: 1
   IntroducedVersion: 1.0
