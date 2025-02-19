@@ -1,0 +1,3001 @@
+{
+	"name": "Load SAP Notifications to SQLDB",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_IMAINTNOTIF",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IMAINTNOTIF"
+					},
+					{
+						"name": "Destination",
+						"value": "fssapintegrationhacks/sap/pm/IMAINTNOTIF"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCENOTIFICATION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCENOTIFICATION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTPRIORITY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTPRIORITY",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTPRIORITYTYPE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTPRIORITYTYPE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONTYPE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONTYPE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFPROCESSINGPHASE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFPROCESSINGPHASE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATEDBYUSER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "CREATEDBYUSER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTCHANGEDBYUSER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LASTCHANGEDBYUSER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "REPORTEDBYUSER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "REPORTEDBYUSER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATIONDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "CREATIONDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTCHANGETIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "LASTCHANGETIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTCHANGEDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "LASTCHANGEDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATIONTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "CREATIONTIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "CREATIONDATETIME",
+									"type": "String",
+									"physicalType": "g"
+								},
+								"sink": {
+									"name": "CREATIONDATETIME",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONTEXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONTEXT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LONGTEXTLANGUAGE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LONGTEXTLANGUAGE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEORDER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEORDER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "REQUIREDSTARTDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "REQUIREDSTARTDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "REQUIREDSTARTTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "REQUIREDSTARTTIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "REQUIREDENDDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "REQUIREDENDDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "REQUIREDENDTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "REQUIREDENDTIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONCREATIONDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "NOTIFICATIONCREATIONDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONCREATIONTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "NOTIFICATIONCREATIONTIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONREFERENCEDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "NOTIFICATIONREFERENCEDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONHASLONGTEXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONHASLONGTEXT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFINTERNALID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFINTERNALID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONTIMEZONE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONTIMEZONE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONREFERENCETIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "NOTIFICATIONREFERENCETIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONCOMPLETIONDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "NOTIFICATIONCOMPLETIONDATE",
+									"type": "DateTime",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONCOMPLETIONTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "NOTIFICATIONCOMPLETIONTIME",
+									"type": "TimeSpan",
+									"physicalType": "time"
+								}
+							},
+							{
+								"source": {
+									"name": "WORKCENTERINTERNALID",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "WORKCENTERINTERNALID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "WORKCENTERTYPECODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "WORKCENTERTYPECODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEWORKCENTERPLANT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEWORKCENTERPLANT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFICATIONCATALOG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFICATIONCATALOG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFICATIONCODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFICATIONCODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFICATIONCODEGROUP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFICATIONCODEGROUP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "CATALOGPROFILE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "CATALOGPROFILE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONORIGIN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONORIGIN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ISDELETED",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ISDELETED",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ISCOMPLETED",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ISCOMPLETED",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LASTCHANGEDATETIME",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "LASTCHANGEDATETIME",
+									"type": "Decimal",
+									"physicalType": "decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "SERIALNUMBER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SERIALNUMBER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MATERIAL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MATERIAL",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ADDITIONALDEVICEDATA",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ADDITIONALDEVICEDATA",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFEXTREFERENCENUMBER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFEXTREFERENCENUMBER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MASTERLANGUAGE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MASTERLANGUAGE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_kff",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTable1",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Copy_QMEL",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "IMAINTNOTIF"
+					},
+					{
+						"name": "Destination",
+						"value": "fssapintegrationhacks/sap/pm/IMAINTNOTIF"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMNUM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMNUM",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMART",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMART",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMTXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMTXT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ARTPR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ARTPR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PRIOK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "PRIOK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ERNAM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ERNAM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ERDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "ERDAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AENAM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "AENAM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "AEDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "AEDAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MZEIT",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "MZEIT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "QMDAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMNAM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMNAM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "STRMN",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "STRMN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "STRUR",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "STRUR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LTRMN",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "LTRMN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LTRUR",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "LTRUR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "WAERS",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "WAERS",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AUFNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "AUFNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "VERID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VERID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "RM_MATNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RM_MATNR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "RM_WERKS",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RM_WERKS",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SA_AUFNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SA_AUFNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MATNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MATNR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "REVLV",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "REVLV",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MATKL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MATKL",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PRDHA",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "PRDHA",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KZKRI",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KZKRI",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "KZDKZ",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KZDKZ",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "KUNUM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KUNUM",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "FEKNZ",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FEKNZ",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAKNZ",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAKNZ",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "OBJNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "OBJNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMDAB",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "QMDAB",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMZAB",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "QMZAB",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "RBNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RBNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "RBNRI",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RBNRI",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "INDTX",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "INDTX",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "KZMLA",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KZMLA",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "HERKZ",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "HERKZ",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BEZDT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "BEZDT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BEZUR",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "BEZUR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LIFNUM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LIFNUM",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BUNAME",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "BUNAME",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "VBELN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VBELN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BSTNK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "BSTNK",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "BSTDK",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "BSTDK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SPART",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SPART",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "VKORG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VKORG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "VTWEG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VTWEG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ADRNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ADRNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AEZEIT",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "AEZEIT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ERZEIT",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "ERZEIT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAWERK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAWERK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMKAT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMKAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMGRP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMGRP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QMCOD",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QMCOD",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AUSWIRK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "AUSWIRK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TEILEV",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TEILEV",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PRUEFLOS",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "PRUEFLOS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 12
+								}
+							},
+							{
+								"source": {
+									"name": "CHARG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "CHARG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LGORTCHARG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LGORTCHARG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LICHN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LICHN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "HERSTELLER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "HERSTELLER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "EMATNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "EMATNR",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "EKORG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "EKORG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BKGRP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "BKGRP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LGORTVORG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LGORTVORG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "FERTAUFNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FERTAUFNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "FERTAUFPL",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "FERTAUFPL",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 10
+								}
+							},
+							{
+								"source": {
+									"name": "EBELN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "EBELN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "EBELP",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "EBELP",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 5
+								}
+							},
+							{
+								"source": {
+									"name": "MJAHR",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "MJAHR",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 4
+								}
+							},
+							{
+								"source": {
+									"name": "MBLNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MBLNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MBLPO",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "MBLPO",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 4
+								}
+							},
+							{
+								"source": {
+									"name": "LS_KDAUF",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LS_KDAUF",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LS_KDPOS",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "LS_KDPOS",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 6
+								}
+							},
+							{
+								"source": {
+									"name": "LS_VBELN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LS_VBELN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LS_POSNR",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "LS_POSNR",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 6
+								}
+							},
+							{
+								"source": {
+									"name": "CROBJTY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "CROBJTY",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ARBPL",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "ARBPL",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "ARBPLWERK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ARBPLWERK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "FEART",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FEART",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PNLKN",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "PNLKN",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "MGEIG",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "MGEIG",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 13
+								}
+							},
+							{
+								"source": {
+									"name": "MGFRD",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "MGFRD",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 13
+								}
+							},
+							{
+								"source": {
+									"name": "MGEIN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MGEIN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BZMNG",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "BZMNG",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 13
+								}
+							},
+							{
+								"source": {
+									"name": "RKMNG",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "RKMNG",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 13
+								}
+							},
+							{
+								"source": {
+									"name": "RGMNG",
+									"type": "Decimal",
+									"physicalType": "P"
+								},
+								"sink": {
+									"name": "RGMNG",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 13
+								}
+							},
+							{
+								"source": {
+									"name": "RKDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "RKDAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "COAUFNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "COAUFNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "QWRNUM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "QWRNUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "REFNUM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "REFNUM",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "KDMAT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KDMAT",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "IDNLF",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "IDNLF",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "SERIALNR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SERIALNR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "KZLOESCH",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "KZLOESCH",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "CVP_XBLCK",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "CVP_XBLCK",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PRODDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "PRODDAT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "DEVICEID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "DEVICEID",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "VKBUR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VKBUR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "VKGRP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "VKGRP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AUTKZ",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "AUTKZ",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "BEDID",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "BEDID",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 12
+								}
+							},
+							{
+								"source": {
+									"name": "BEDZL",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "BEDZL",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "PROFIL_TYP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "PROFIL_TYP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PROFIL_ID",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "PROFIL_ID",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 8
+								}
+							},
+							{
+								"source": {
+									"name": "HANDLE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "HANDLE",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "TSEGFL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TSEGFL",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TSEGTP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TSEGTP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TZONSO",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TZONSO",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TZONID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TZONID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "FUNKTION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FUNKTION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/INSTN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "INSTN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/MNUMM",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "MNUMM",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 24
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/OSSYS",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "OSSYS",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/DBSYS",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "DBSYS",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/REL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "REL",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/COMP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "COMP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/FRONT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "FRONT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/SYSTYP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SYSTYP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/ADDID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ADDID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/ADDREL",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ADDREL",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/TSTMP",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "TSTMP",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 14
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/STATUS",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "STATUS",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/ERDAT",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "ERDAT2",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/ERZEIT",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "ERZEIT2",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "/SAPSMOSS/SYSID",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SYSID",
+									"type": "String",
+									"physicalType": "char"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SapTableQMEL",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSqlTableQMEL",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Maintenance Notification Data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SapTableSource",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MANDT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCENOTIFICATION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCENOTIFICATION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MALFUNCTIONEFFECT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MALFUNCTIONEFFECT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "EQUIPMENT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "EQUIPMENT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "ASSEMBLY",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEPLANNINGPLANT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEPLANNINGPLANT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEPLANNERGROUP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEPLANNERGROUP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCATIONDESCRIPTION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "LOCATIONDESCRIPTION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEOBJECTISDOWN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEOBJECTISDOWN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MALFUNCTIONSTARTDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "MALFUNCTIONSTARTDATE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MALFUNCTIONENDDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "MALFUNCTIONENDDATE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MALFUNCTIONSTARTTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "MALFUNCTIONSTARTTIME",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MALFUNCTIONENDTIME",
+									"type": "String",
+									"physicalType": "T"
+								},
+								"sink": {
+									"name": "MALFUNCTIONENDTIME",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "INSPECTIONDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "INSPECTIONDATE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "INSPECTEDBYUSER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "INSPECTEDBYUSER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEREVISION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEREVISION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTOBJECTDOWNTIMEDURATION",
+									"type": "Double",
+									"physicalType": "F"
+								},
+								"sink": {
+									"name": "MAINTOBJECTDOWNTIMEDURATION",
+									"type": "Single",
+									"physicalType": "real"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SALESDOCUMENT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SALESDOCUMENT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SALESDOCUMENTITEM",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "SALESDOCUMENTITEM",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEPLAN",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEPLAN",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEITEM",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEITEM",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEACTIVITYTYPE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCEACTIVITYTYPE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "RELEVANTFUNCTIONALLOCATION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RELEVANTFUNCTIONALLOCATION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "RELEVANTEQUIPMENT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "RELEVANTEQUIPMENT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "AVAILYAFTERCONCLUSIONPERCENT",
+									"type": "String",
+									"physicalType": "N"
+								},
+								"sink": {
+									"name": "AVAILYAFTERCONCLUSIONPERCENT",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SYSTCONDITIONAFTERMALFUNCTION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SYSTCONDITIONAFTERMALFUNCTION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "SYSTCONDITIONAFTERCOMPLETION",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "SYSTCONDITIONAFTERCOMPLETION",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "LATESTACCEPTABLECOMPLETIONDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "LATESTACCEPTABLECOMPLETIONDATE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "NOTIFICATIONPERSONRESPONSIBLE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "NOTIFICATIONPERSONRESPONSIBLE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFPROCESSPHASECODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFPROCESSPHASECODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFREJECTIONREASONCODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFREJECTIONREASONCODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCEPLANCALLNUMBER",
+									"type": "Int32",
+									"physicalType": "I"
+								},
+								"sink": {
+									"name": "MAINTENANCEPLANCALLNUMBER",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTENANCETASKLISTTYPE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTENANCETASKLISTTYPE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TASKLISTGROUP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TASKLISTGROUP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "TASKLISTGROUPCOUNTER",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "TASKLISTGROUPCOUNTER",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFDETECTIONCATALOG",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFDETECTIONCATALOG",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFDETECTIONCODEGROUP",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFDETECTIONCODEGROUP",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFDETECTIONCODE",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFDETECTIONCODE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "MAINTNOTIFPROCESSINGCONTEXT",
+									"type": "String",
+									"physicalType": "C"
+								},
+								"sink": {
+									"name": "MAINTNOTIFPROCESSINGCONTEXT",
+									"type": "String",
+									"physicalType": "char"
+								}
+							},
+							{
+								"source": {
+									"name": "PREVIOUSFINALDUEDATE",
+									"type": "String",
+									"physicalType": "D"
+								},
+								"sink": {
+									"name": "PREVIOUSFINALDUEDATE",
+									"type": "String",
+									"physicalType": "char"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SapTable_IPMNTFMAINTDATA",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSql_I_PMNotifMaintenanceData",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Maintenance Notification Item",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Df_I_MaintNotificationItemData",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "a77f8f48-d52f-4ca9-8812-1ad6a70b6f8f"
+					}
+				}
+			},
+			{
+				"name": "Maintenance Notification Activity",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Df_I_MaintNotificationActyData",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "f77688e3-3571-4312-b684-b97e4353280e"
+					}
+				}
+			},
+			{
+				"name": "Maintenance Notification Cause",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Df_I_MaintNotificationCauseData",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "f78a157d-ae74-4b06-acd4-956c87ca0faf"
+					}
+				}
+			},
+			{
+				"name": "Maintenance Notification Task",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Dt_I_MaintNotificationTaskData",
+						"type": "DataFlowReference"
+					},
+					"staging": {
+						"linkedService": {
+							"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+							"type": "LinkedServiceReference"
+						},
+						"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine",
+					"continuationSettings": {
+						"customizedCheckpointKey": "6ceaf60c-af4b-40a6-aeb3-b5292dcc85a6"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-02-19T04:22:12Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

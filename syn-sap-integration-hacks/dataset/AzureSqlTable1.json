@@ -1,0 +1,211 @@
+{
+	"name": "AzureSqlTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabasecopilothack",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCENOTIFICATION",
+				"type": "char"
+			},
+			{
+				"name": "MAINTPRIORITY",
+				"type": "char"
+			},
+			{
+				"name": "MAINTPRIORITYTYPE",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFICATIONTYPE",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFPROCESSINGPHASE",
+				"type": "char"
+			},
+			{
+				"name": "CREATEDBYUSER",
+				"type": "char"
+			},
+			{
+				"name": "LASTCHANGEDBYUSER",
+				"type": "char"
+			},
+			{
+				"name": "REPORTEDBYUSER",
+				"type": "char"
+			},
+			{
+				"name": "CREATIONDATE",
+				"type": "date"
+			},
+			{
+				"name": "LASTCHANGETIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "LASTCHANGEDATE",
+				"type": "date"
+			},
+			{
+				"name": "CREATIONTIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "CREATIONDATETIME",
+				"type": "varchar"
+			},
+			{
+				"name": "NOTIFICATIONTEXT",
+				"type": "char"
+			},
+			{
+				"name": "LONGTEXTLANGUAGE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEORDER",
+				"type": "char"
+			},
+			{
+				"name": "REQUIREDSTARTDATE",
+				"type": "date"
+			},
+			{
+				"name": "REQUIREDSTARTTIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "REQUIREDENDDATE",
+				"type": "date"
+			},
+			{
+				"name": "REQUIREDENDTIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "NOTIFICATIONCREATIONDATE",
+				"type": "date"
+			},
+			{
+				"name": "NOTIFICATIONCREATIONTIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "NOTIFICATIONREFERENCEDATE",
+				"type": "date"
+			},
+			{
+				"name": "NOTIFICATIONHASLONGTEXT",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFINTERNALID",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFICATIONTIMEZONE",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFICATIONREFERENCETIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "NOTIFICATIONCOMPLETIONDATE",
+				"type": "date"
+			},
+			{
+				"name": "NOTIFICATIONCOMPLETIONTIME",
+				"type": "time",
+				"scale": 6
+			},
+			{
+				"name": "WORKCENTERINTERNALID",
+				"type": "char"
+			},
+			{
+				"name": "WORKCENTERTYPECODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEWORKCENTERPLANT",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFICATIONCATALOG",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFICATIONCODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFICATIONCODEGROUP",
+				"type": "char"
+			},
+			{
+				"name": "CATALOGPROFILE",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFICATIONORIGIN",
+				"type": "char"
+			},
+			{
+				"name": "ISDELETED",
+				"type": "char"
+			},
+			{
+				"name": "ISCOMPLETED",
+				"type": "char"
+			},
+			{
+				"name": "LASTCHANGEDATETIME",
+				"type": "decimal",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "SERIALNUMBER",
+				"type": "char"
+			},
+			{
+				"name": "MATERIAL",
+				"type": "char"
+			},
+			{
+				"name": "ADDITIONALDEVICEDATA",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFEXTREFERENCENUMBER",
+				"type": "char"
+			},
+			{
+				"name": "MASTERLANGUAGE",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "I_MAINTENANCENOTIFICATION"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

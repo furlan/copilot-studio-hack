@@ -1,0 +1,16 @@
+{
+	"name": "SapTable_IPMNTFMAINTDATA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "IPMNTFMAINTDATA"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

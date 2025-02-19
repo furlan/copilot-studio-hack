@@ -1,0 +1,700 @@
+{
+	"name": "AzureSqlTableQMEL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabasecopilothack",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "char"
+			},
+			{
+				"name": "QMNUM",
+				"type": "char"
+			},
+			{
+				"name": "QMART",
+				"type": "char"
+			},
+			{
+				"name": "QMTXT",
+				"type": "varchar"
+			},
+			{
+				"name": "ARTPR",
+				"type": "char"
+			},
+			{
+				"name": "PRIOK",
+				"type": "char"
+			},
+			{
+				"name": "ERNAM",
+				"type": "varchar"
+			},
+			{
+				"name": "ERDAT",
+				"type": "char"
+			},
+			{
+				"name": "AENAM",
+				"type": "varchar"
+			},
+			{
+				"name": "AEDAT",
+				"type": "char"
+			},
+			{
+				"name": "MZEIT",
+				"type": "char"
+			},
+			{
+				"name": "QMDAT",
+				"type": "char"
+			},
+			{
+				"name": "QMNAM",
+				"type": "varchar"
+			},
+			{
+				"name": "STRMN",
+				"type": "char"
+			},
+			{
+				"name": "STRUR",
+				"type": "char"
+			},
+			{
+				"name": "LTRMN",
+				"type": "char"
+			},
+			{
+				"name": "LTRUR",
+				"type": "char"
+			},
+			{
+				"name": "WAERS",
+				"type": "char"
+			},
+			{
+				"name": "AUFNR",
+				"type": "char"
+			},
+			{
+				"name": "VERID",
+				"type": "char"
+			},
+			{
+				"name": "RM_MATNR",
+				"type": "varchar"
+			},
+			{
+				"name": "RM_WERKS",
+				"type": "char"
+			},
+			{
+				"name": "SA_AUFNR",
+				"type": "char"
+			},
+			{
+				"name": "MATNR",
+				"type": "varchar"
+			},
+			{
+				"name": "REVLV",
+				"type": "char"
+			},
+			{
+				"name": "MATKL",
+				"type": "char"
+			},
+			{
+				"name": "PRDHA",
+				"type": "varchar"
+			},
+			{
+				"name": "KZKRI",
+				"type": "char"
+			},
+			{
+				"name": "KZDKZ",
+				"type": "char"
+			},
+			{
+				"name": "KUNUM",
+				"type": "char"
+			},
+			{
+				"name": "FEKNZ",
+				"type": "char"
+			},
+			{
+				"name": "MAKNZ",
+				"type": "char"
+			},
+			{
+				"name": "OBJNR",
+				"type": "char"
+			},
+			{
+				"name": "QMDAB",
+				"type": "char"
+			},
+			{
+				"name": "QMZAB",
+				"type": "char"
+			},
+			{
+				"name": "RBNR",
+				"type": "char"
+			},
+			{
+				"name": "RBNRI",
+				"type": "char"
+			},
+			{
+				"name": "INDTX",
+				"type": "char"
+			},
+			{
+				"name": "KZMLA",
+				"type": "char"
+			},
+			{
+				"name": "HERKZ",
+				"type": "char"
+			},
+			{
+				"name": "BEZDT",
+				"type": "char"
+			},
+			{
+				"name": "BEZUR",
+				"type": "char"
+			},
+			{
+				"name": "LIFNUM",
+				"type": "char"
+			},
+			{
+				"name": "BUNAME",
+				"type": "char"
+			},
+			{
+				"name": "VBELN",
+				"type": "char"
+			},
+			{
+				"name": "BSTNK",
+				"type": "varchar"
+			},
+			{
+				"name": "BSTDK",
+				"type": "char"
+			},
+			{
+				"name": "SPART",
+				"type": "char"
+			},
+			{
+				"name": "VKORG",
+				"type": "char"
+			},
+			{
+				"name": "VTWEG",
+				"type": "char"
+			},
+			{
+				"name": "ADRNR",
+				"type": "char"
+			},
+			{
+				"name": "AEZEIT",
+				"type": "char"
+			},
+			{
+				"name": "ERZEIT",
+				"type": "char"
+			},
+			{
+				"name": "MAWERK",
+				"type": "char"
+			},
+			{
+				"name": "QMKAT",
+				"type": "char"
+			},
+			{
+				"name": "QMGRP",
+				"type": "char"
+			},
+			{
+				"name": "QMCOD",
+				"type": "char"
+			},
+			{
+				"name": "AUSWIRK",
+				"type": "char"
+			},
+			{
+				"name": "TEILEV",
+				"type": "char"
+			},
+			{
+				"name": "PRUEFLOS",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
+			},
+			{
+				"name": "CHARG",
+				"type": "char"
+			},
+			{
+				"name": "LGORTCHARG",
+				"type": "char"
+			},
+			{
+				"name": "LICHN",
+				"type": "char"
+			},
+			{
+				"name": "HERSTELLER",
+				"type": "char"
+			},
+			{
+				"name": "EMATNR",
+				"type": "varchar"
+			},
+			{
+				"name": "EKORG",
+				"type": "char"
+			},
+			{
+				"name": "BKGRP",
+				"type": "char"
+			},
+			{
+				"name": "LGORTVORG",
+				"type": "char"
+			},
+			{
+				"name": "FERTAUFNR",
+				"type": "char"
+			},
+			{
+				"name": "FERTAUFPL",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			},
+			{
+				"name": "EBELN",
+				"type": "char"
+			},
+			{
+				"name": "EBELP",
+				"type": "decimal",
+				"precision": 5,
+				"scale": 2
+			},
+			{
+				"name": "MJAHR",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "MBLNR",
+				"type": "char"
+			},
+			{
+				"name": "MBLPO",
+				"type": "decimal",
+				"precision": 4,
+				"scale": 2
+			},
+			{
+				"name": "LS_KDAUF",
+				"type": "char"
+			},
+			{
+				"name": "LS_KDPOS",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 2
+			},
+			{
+				"name": "LS_VBELN",
+				"type": "char"
+			},
+			{
+				"name": "LS_POSNR",
+				"type": "decimal",
+				"precision": 6,
+				"scale": 2
+			},
+			{
+				"name": "CROBJTY",
+				"type": "char"
+			},
+			{
+				"name": "ARBPL",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "ARBPLWERK",
+				"type": "char"
+			},
+			{
+				"name": "FEART",
+				"type": "char"
+			},
+			{
+				"name": "PNLKN",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "MGEIG",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "MGFRD",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "MGEIN",
+				"type": "char"
+			},
+			{
+				"name": "BZMNG",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "RKMNG",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "RGMNG",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "RKDAT",
+				"type": "char"
+			},
+			{
+				"name": "COAUFNR",
+				"type": "char"
+			},
+			{
+				"name": "QWRNUM",
+				"type": "varchar"
+			},
+			{
+				"name": "REFNUM",
+				"type": "varchar"
+			},
+			{
+				"name": "KDMAT",
+				"type": "varchar"
+			},
+			{
+				"name": "IDNLF",
+				"type": "varchar"
+			},
+			{
+				"name": "SERIALNR",
+				"type": "char"
+			},
+			{
+				"name": "KZLOESCH",
+				"type": "char"
+			},
+			{
+				"name": "CVP_XBLCK",
+				"type": "char"
+			},
+			{
+				"name": "PRODDAT",
+				"type": "char"
+			},
+			{
+				"name": "DEVICEID",
+				"type": "varchar"
+			},
+			{
+				"name": "VKBUR",
+				"type": "char"
+			},
+			{
+				"name": "VKGRP",
+				"type": "char"
+			},
+			{
+				"name": "AUTKZ",
+				"type": "char"
+			},
+			{
+				"name": "BEDID",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
+			},
+			{
+				"name": "BEDZL",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "PROFIL_TYP",
+				"type": "char"
+			},
+			{
+				"name": "PROFIL_ID",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "HANDLE",
+				"type": "varchar"
+			},
+			{
+				"name": "TSEGFL",
+				"type": "char"
+			},
+			{
+				"name": "TSEGTP",
+				"type": "char"
+			},
+			{
+				"name": "TZONSO",
+				"type": "char"
+			},
+			{
+				"name": "TZONID",
+				"type": "char"
+			},
+			{
+				"name": "FUNKTION",
+				"type": "char"
+			},
+			{
+				"name": "INSTN",
+				"type": "char"
+			},
+			{
+				"name": "MNUMM",
+				"type": "decimal",
+				"precision": 24,
+				"scale": 2
+			},
+			{
+				"name": "OSSYS",
+				"type": "char"
+			},
+			{
+				"name": "DBSYS",
+				"type": "char"
+			},
+			{
+				"name": "REL",
+				"type": "char"
+			},
+			{
+				"name": "COMP",
+				"type": "char"
+			},
+			{
+				"name": "FRONT",
+				"type": "char"
+			},
+			{
+				"name": "SYSTYP",
+				"type": "char"
+			},
+			{
+				"name": "ADDID",
+				"type": "char"
+			},
+			{
+				"name": "ADDREL",
+				"type": "char"
+			},
+			{
+				"name": "TSTMP",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "STATUS",
+				"type": "char"
+			},
+			{
+				"name": "ERDAT2",
+				"type": "char"
+			},
+			{
+				"name": "ERZEIT2",
+				"type": "char"
+			},
+			{
+				"name": "SYSID",
+				"type": "char"
+			},
+			{
+				"name": "MANDT2",
+				"type": "decimal",
+				"precision": 3,
+				"scale": 2
+			},
+			{
+				"name": "PSP_NR",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "ESTIMATED_COSTS",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "CLAIMED_COSTS",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "RESULT_COSTS",
+				"type": "decimal",
+				"precision": 13,
+				"scale": 2
+			},
+			{
+				"name": "CHANCE",
+				"type": "decimal",
+				"precision": 2,
+				"scale": 2
+			},
+			{
+				"name": "OPPONENT",
+				"type": "char"
+			},
+			{
+				"name": "KALNR",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
+			},
+			{
+				"name": "KALVAR",
+				"type": "char"
+			},
+			{
+				"name": "OBJNR_REAL",
+				"type": "varchar"
+			},
+			{
+				"name": "OBJNR_STAT",
+				"type": "char"
+			},
+			{
+				"name": "DUMMY_QMEL_INCL_EEW_PS",
+				"type": "char"
+			},
+			{
+				"name": "PHASE",
+				"type": "char"
+			},
+			{
+				"name": "SGT_SCAT",
+				"type": "varchar"
+			},
+			{
+				"name": "CHANGEDDATETIME",
+				"type": "decimal",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "MHIO_ADDATE",
+				"type": "char"
+			},
+			{
+				"name": "MHIO_ADTIME",
+				"type": "char"
+			},
+			{
+				"name": "USERMODE",
+				"type": "char"
+			},
+			{
+				"name": "OBJNR2",
+				"type": "char"
+			},
+			{
+				"name": "LOGSYSTEM",
+				"type": "char"
+			},
+			{
+				"name": "MEQUI",
+				"type": "char"
+			},
+			{
+				"name": "SHN_OBJTY",
+				"type": "char"
+			},
+			{
+				"name": "SHN_OBJID",
+				"type": "decimal",
+				"precision": 8,
+				"scale": 2
+			},
+			{
+				"name": "SHN_FUNCT_LOC",
+				"type": "varchar"
+			},
+			{
+				"name": "SHN_EQUIPMENT",
+				"type": "char"
+			},
+			{
+				"name": "SHN_ORIGIN",
+				"type": "decimal",
+				"precision": 2,
+				"scale": 2
+			},
+			{
+				"name": "UII",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "QMEL"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

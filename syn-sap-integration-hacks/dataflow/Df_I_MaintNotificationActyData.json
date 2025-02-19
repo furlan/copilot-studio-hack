@@ -1,0 +1,53 @@
+{
+	"name": "Df_I_MaintNotificationActyData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "SapOdp1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "INOTIFACTYDATA"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "AzureSqlDatabasecopilothack",
+						"type": "LinkedServiceReference"
+					},
+					"name": "MaintNotificationActyData"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     store: 'SapOdp',",
+				"     format: 'sapObject',",
+				"     staged: true,",
+				"     context: 'ABAP_CDS',",
+				"     objectName: 'INOTIFACTYDATA$F',",
+				"     readMode: 'fullAndIncrementalLoad',",
+				"     keys: ['MAINTNOTIFICATIONACTIVITY','MAINTENANCENOTIFICATION'],",
+				"     fixDecimalPrecision: true) ~> INOTIFACTYDATA",
+				"INOTIFACTYDATA sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'sqlserver',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'I_MaintNotificationActyData',",
+				"     insertable: true,",
+				"     updateable: true,",
+				"     deletable: true,",
+				"     upsertable: true,",
+				"     keys:['MAINTNOTIFICATIONACTIVITY','MAINTENANCENOTIFICATION'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> MaintNotificationActyData"
+			]
+		}
+	}
+}

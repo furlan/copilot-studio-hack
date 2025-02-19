@@ -1,0 +1,16 @@
+{
+	"name": "SourceDataset_kff",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "IMAINTNOTIF"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

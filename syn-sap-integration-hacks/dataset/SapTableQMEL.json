@@ -1,0 +1,16 @@
+{
+	"name": "SapTableQMEL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "QMEL"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,20 @@
+{
+	"name": "SapTable",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SapTable",
+		"typeProperties": {
+			"clientId": "100",
+			"sncMode": false,
+			"userName": "ODPUSER",
+			"server": "10.0.0.84",
+			"systemNumber": "00",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4MzIzY2UxNi1iYWY1LTQxODEtYmI2NS1lMzE5M2QwYjdmNGYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-sap-cal-syn",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,208 @@
+{
+	"name": "AzureSql_I_PMNotifMaintenanceData",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabasecopilothack",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "MANDT",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCENOTIFICATION",
+				"type": "char"
+			},
+			{
+				"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+				"type": "char"
+			},
+			{
+				"name": "MALFUNCTIONEFFECT",
+				"type": "char"
+			},
+			{
+				"name": "EQUIPMENT",
+				"type": "char"
+			},
+			{
+				"name": "ASSEMBLY",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEPLANNINGPLANT",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEPLANNERGROUP",
+				"type": "char"
+			},
+			{
+				"name": "LOCATIONDESCRIPTION",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEOBJECTISDOWN",
+				"type": "char"
+			},
+			{
+				"name": "MALFUNCTIONSTARTDATE",
+				"type": "char"
+			},
+			{
+				"name": "MALFUNCTIONENDDATE",
+				"type": "char"
+			},
+			{
+				"name": "MALFUNCTIONSTARTTIME",
+				"type": "char"
+			},
+			{
+				"name": "MALFUNCTIONENDTIME",
+				"type": "char"
+			},
+			{
+				"name": "INSPECTIONDATE",
+				"type": "char"
+			},
+			{
+				"name": "INSPECTEDBYUSER",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEREVISION",
+				"type": "char"
+			},
+			{
+				"name": "MAINTOBJECTDOWNTIMEDURATION",
+				"type": "real",
+				"precision": 7
+			},
+			{
+				"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+				"type": "char"
+			},
+			{
+				"name": "SALESDOCUMENT",
+				"type": "char"
+			},
+			{
+				"name": "SALESDOCUMENTITEM",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MAINTENANCEPLAN",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEITEM",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEACTIVITYTYPE",
+				"type": "char"
+			},
+			{
+				"name": "RELEVANTFUNCTIONALLOCATION",
+				"type": "char"
+			},
+			{
+				"name": "RELEVANTEQUIPMENT",
+				"type": "char"
+			},
+			{
+				"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AVAILYAFTERCONCLUSIONPERCENT",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+				"type": "char"
+			},
+			{
+				"name": "SYSTCONDITIONAFTERMALFUNCTION",
+				"type": "char"
+			},
+			{
+				"name": "SYSTCONDITIONAFTERCOMPLETION",
+				"type": "char"
+			},
+			{
+				"name": "LATESTACCEPTABLECOMPLETIONDATE",
+				"type": "char"
+			},
+			{
+				"name": "NOTIFICATIONPERSONRESPONSIBLE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFPROCESSPHASECODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFREJECTIONREASONCODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTENANCEPLANCALLNUMBER",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "MAINTENANCETASKLISTTYPE",
+				"type": "char"
+			},
+			{
+				"name": "TASKLISTGROUP",
+				"type": "char"
+			},
+			{
+				"name": "TASKLISTGROUPCOUNTER",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFDETECTIONCATALOG",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFDETECTIONCODEGROUP",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFDETECTIONCODE",
+				"type": "char"
+			},
+			{
+				"name": "MAINTNOTIFPROCESSINGCONTEXT",
+				"type": "char"
+			},
+			{
+				"name": "PREVIOUSFINALDUEDATE",
+				"type": "char"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "I_PMNotifMaintenanceData"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

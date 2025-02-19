@@ -1,0 +1,16 @@
+{
+	"name": "SapTableSPFLI",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "SPFLI"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,56 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "SapOdp1",
+						"type": "LinkedServiceReference"
+					},
+					"name": "IMAINTPLANDATA"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DeltaIMAINTPLANDATA"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     store: 'SapOdp',",
+				"     format: 'sapObject',",
+				"     staged: true,",
+				"     context: 'ABAP_CDS',",
+				"     objectName: 'IMAINTPLANDATA$P',",
+				"     readMode: 'fullLoad',",
+				"     fixDecimalPrecision: true) ~> IMAINTPLANDATA",
+				"IMAINTPLANDATA sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     fileSystem: 'fssapintegrationhacks',",
+				"     folderPath: 'sap/pm',",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable: false,",
+				"     insertable: true,",
+				"     updateable: false,",
+				"     upsertable: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DeltaIMAINTPLANDATA"
+			]
+		}
+	}
+}

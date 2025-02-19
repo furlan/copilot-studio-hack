@@ -1,0 +1,6 @@
+{
+	"name": "ir-sap-cal-syn",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
