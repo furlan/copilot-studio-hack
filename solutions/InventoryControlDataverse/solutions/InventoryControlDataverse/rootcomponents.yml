@@ -1,1 +1,5 @@
-RootComponents: 
+RootComponents:
+  RootComponent:
+    '@type': 1
+    '@schemaName': crf84_inventory
+    '@behavior': 0
