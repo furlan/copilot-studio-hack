@@ -29,9 +29,7 @@ The prompt action is the most critical element of the solution. Prompt actions a
 
 ## Solution breakdown
 
-You can download the solution file from here.
-
-Alternatively, you can recreate the solution based on the detail described on this section.
+You can download the solution file from here. Alternatively, you can recreate the solution based on the detail described on this section.
 
 ### Agent attributes
 
@@ -61,19 +59,9 @@ Description: This knowledge source answers questions found in the following Data
 
 ![Inventory Dataverse table knowledge](./artifacts/Inventory-dataverse-table-knowledge.png)
 
-### Actions
-
-The action is to update the information in the Dataverse table, based on the Row ID.
-
-```text
-Type: Update a row in selected environment.
-Name: Update Inventory table
-Description: Update a row in the table Inventory at the actual Power Platform environment.
-```
-
 ### Topics
 
-The new topic is to manage the update flow. During the update, it is necessary to retrieve the Row ID and use the action created above.
+The new topic is to manage the update flow. During the update, it is necessary to retrieve the Row ID and use the action to update Dataverse table.
 
 ```text
 Name: Update Inventory 
@@ -82,7 +70,7 @@ Trigger by agent, based on the following description on what the topic does: Thi
 
 #### Prompt action
 
-The AI prompt **Material information from Dataverse table** has the following attributes:
+The AI prompt **Material information from Dataverse table** is the key component. The prompt will extract relevant information from the user prompt and get the actual row information for the material. The AI prompt has the following attributes:
 
 ```prompt
 Extract the material name, quantity added and unit of measure from the text  Add to the inventory . Use the material name to get Row ID from Inventory.Material Name. 
@@ -114,7 +102,15 @@ The expected output for this prompt is a JSON structure with relevant informatio
 
 ### Inventory table
 
+The Inventory table resides in the Dataverse. It is a very simple table, created just for the purpose of the demo. Here is the content example:
 
+| Material Name | Quantity | Unit of Measure | Stock Threshold |
+| ------------- | :------: | :-------------: | :-------------: |
+| Coffee        |    50    |      Unit       |       10        |
+| Coffee filter |   100    |      Unit       |       20        |
+| Paper tower   |   200    |      Unit       |       50        |
+| Soap          |    2     |       Box       |        5        |
+| Sugar         |    20    |      Unit       |       10        |
 
 ## Testing the agent
 
@@ -123,7 +119,7 @@ To test the agent, just prompt some questions using the test panel:
 - How much sugar do I have in stock?
 - The current stock level of sugar is 18 units
 - Should I need to buy more sugar?
-- You currently have 18 units of sugar in stock. Based on this quantity, you may need to consider purchasing more sugar if your demand exceeds this level 
+- You currently have 18 units of sugar in stock. Based on this quantity, you may need to consider purchasing more sugar if your demand exceeds this level
 - Add 20 more units of sugar to the stock.
 - The stock of sugar has been successfully updated by adding 20 more units.
 - And not, do I have enough sugar in stock? How much sugar do I have in stock?
@@ -133,8 +129,4 @@ To test the agent, just prompt some questions using the test panel:
 
 ## Conclusion
 
-The goal of this very simple agent, is just to propose a solution to enable an agent to update a table. You can improve the agent adding more capabilities, such as, update the material description, update the threshold, decreasing the stock level, and even return a list of materials that should be purchases (stock level below the threshold).
-
-## Solution file
-
-
+The goal of this very simple agent is just to propose a solution enabling an agent to update a table. You can improve the agent adding more capabilities, such as, update the material description, update the threshold, decreasing the stock level, and even return a list of materials that should be purchases (stock level below the threshold).
