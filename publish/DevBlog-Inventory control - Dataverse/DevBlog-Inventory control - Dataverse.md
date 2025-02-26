@@ -29,7 +29,7 @@ The prompt action is the most critical element of the solution. Prompt actions a
 
 ## Solution breakdown
 
-You can download the solution file from here. Alternatively, you can recreate the solution based on the detail described on this section.
+You can download the latest solution file from [this folder](../../solutions/InventoryControlDataverse/export/). Alternatively, you can recreate the solution based on the detail described on this section.
 
 ### Agent attributes
 
