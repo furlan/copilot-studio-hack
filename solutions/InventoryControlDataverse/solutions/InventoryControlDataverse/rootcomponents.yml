@@ -1,0 +1,8 @@
+RootComponents:
+  RootComponent:
+  - '@type': 1
+    '@schemaName': crf84_inventory
+    '@behavior': 0
+  - '@type': 401
+    '@id': '{6f8b7362-1f63-48a2-b261-c8e182504ea3}'
+    '@behavior': 0
