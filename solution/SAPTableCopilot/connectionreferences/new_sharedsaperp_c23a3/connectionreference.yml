@@ -1,8 +1,0 @@
-connectionreference:
-  '@connectionreferencelogicalname': new_sharedsaperp_c23a3
-  connectionreferencedisplayname: SAP ERP Default-c23a3
-  connectorid: /providers/Microsoft.PowerApps/apis/shared_saperp
-  iscustomizable: 1
-  promptingbehavior: 0
-  statecode: 0
-  statuscode: 1

@@ -1,8 +1,0 @@
-connectionreference:
-  '@connectionreferencelogicalname': new_sharedoffice365users_76334
-  connectionreferencedisplayname: Office 365 Users Default-76334
-  connectorid: /providers/Microsoft.PowerApps/apis/shared_office365users
-  iscustomizable: 1
-  promptingbehavior: 0
-  statecode: 0
-  statuscode: 1

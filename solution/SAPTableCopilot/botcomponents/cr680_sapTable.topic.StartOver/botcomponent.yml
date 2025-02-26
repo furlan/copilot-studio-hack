@@ -1,7 +1,0 @@
-botcomponent:
-  '@schemaname': cr680_sapTable.topic.StartOver
-  componenttype: 9
-  iscustomizable: 0
-  name: Start Over
-  parentbotid:
-    schemaname: cr680_sapTable

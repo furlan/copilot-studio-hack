@@ -1,8 +1,0 @@
-botcomponent:
-  '@schemaname': cr680_sapTable.topic.ConversationStart
-  componenttype: 9
-  description: This system topic triggers when the bot receives an Activity indicating the beginning of a new conversation. If do not want the bot to initiate the conversation, disable this topic.
-  iscustomizable: 0
-  name: Conversation Start
-  parentbotid:
-    schemaname: cr680_sapTable
