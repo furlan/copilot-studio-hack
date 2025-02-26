@@ -1,0 +1,10 @@
+botcomponent:
+  '@schemaname': cr680_sapTable.topic.Greeting
+  componenttype: 9
+  description: This topic is triggered when the user greets the bot.
+  iscustomizable: 0
+  name: Greeting
+  parentbotid:
+    schemaname: cr680_sapTable
+  statecode: 0
+  statuscode: 1

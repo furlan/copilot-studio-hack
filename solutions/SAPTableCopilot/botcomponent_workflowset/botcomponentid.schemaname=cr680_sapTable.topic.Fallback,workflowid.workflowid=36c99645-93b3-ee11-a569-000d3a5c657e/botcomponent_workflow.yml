@@ -1,0 +1,4 @@
+botcomponent_workflow:
+  '@botcomponentid.schemaname': cr680_sapTable.topic.Fallback
+  '@workflowid.workflowid': 36c99645-93b3-ee11-a569-000d3a5c657e
+  iscustomizable: 1

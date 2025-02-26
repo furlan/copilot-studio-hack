@@ -1,0 +1,31 @@
+botcomponent:
+  '@schemaname': cr680_sapTable.topic.Signin
+  componenttype: 9
+  data: >-
+    kind: AdaptiveDialog
+
+    beginDialog:
+      kind: OnSignIn
+      id: main
+      actions:
+        - kind: ConditionGroup
+          id: conditionGroup_ypjGKL
+          conditions:
+            - id: conditionItem_7XYIIR
+              condition: =System.SignInReason = SignInReason.SignInRequired
+              actions:
+                - kind: SendActivity
+                  id: sendMessage_1jHUNO
+                  activity: Hello! To be able to help you, I'll need you to sign in.
+
+        - kind: OAuthInput
+          id: gOjhZA
+          title: Login
+          text: To continue, please login
+  description: This system topic triggers when the bot needs to sign in the user or require the user to sign in
+  iscustomizable: 0
+  name: 'Sign in '
+  parentbotid:
+    schemaname: cr680_sapTable
+  statecode: 0
+  statuscode: 1
