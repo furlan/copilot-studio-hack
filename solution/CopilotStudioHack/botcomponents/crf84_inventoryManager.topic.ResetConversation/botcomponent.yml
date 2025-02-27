@@ -1,7 +1,0 @@
-botcomponent:
-  '@schemaname': crf84_inventoryManager.topic.ResetConversation
-  componenttype: 9
-  iscustomizable: 0
-  name: Reset Conversation
-  parentbotid:
-    schemaname: crf84_inventoryManager

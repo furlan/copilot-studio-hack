@@ -1,7 +1,0 @@
-botcomponent:
-  '@schemaname': crf84_inventoryManager.topic.StartOver
-  componenttype: 9
-  iscustomizable: 0
-  name: Start Over
-  parentbotid:
-    schemaname: crf84_inventoryManager

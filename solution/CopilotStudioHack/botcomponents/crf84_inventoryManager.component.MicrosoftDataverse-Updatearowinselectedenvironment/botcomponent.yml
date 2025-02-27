@@ -1,9 +1,0 @@
-botcomponent:
-  '@schemaname': crf84_inventoryManager.component.MicrosoftDataverse-Updatearowinselectedenvironment
-  componenttype: 9
-  iscustomizable: 0
-  name: Microsoft Dataverse - Update a row in selected environment
-  parentbotid:
-    schemaname: crf84_inventoryManager
-  statecode: 0
-  statuscode: 1

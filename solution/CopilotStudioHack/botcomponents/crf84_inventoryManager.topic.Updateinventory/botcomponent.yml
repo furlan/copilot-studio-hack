@@ -1,7 +1,0 @@
-botcomponent:
-  '@schemaname': crf84_inventoryManager.topic.Updateinventory
-  componenttype: 9
-  iscustomizable: 0
-  name: Update inventory
-  parentbotid:
-    schemaname: crf84_inventoryManager

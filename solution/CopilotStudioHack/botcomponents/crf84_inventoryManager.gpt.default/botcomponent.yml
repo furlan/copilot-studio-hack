@@ -1,8 +1,0 @@
-botcomponent:
-  '@schemaname': crf84_inventoryManager.gpt.default
-  componenttype: 15
-  description: An agent designed to manage the Inventory dataverse table, providing functionalities such as listing materials with stock below the threshold and checking stock positions for specific materials.
-  iscustomizable: 0
-  name: Inventory Manager
-  parentbotid:
-    schemaname: crf84_inventoryManager
