@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 7a6009de-5851-4ced-a5a2-3ab2ed03deff
+  columnlogicalname: MAINTNOTIFREJECTIONREASONCODE
+  description:
+    '@default': Maintenance Reason Code
+    label:
+      '@description': Maintenance Reason Code
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

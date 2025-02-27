@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': a5bf0d28-5e20-4c8d-8d38-d0a324718b22
+  columnlogicalname: MAINTNOTIFICATIONDAMAGECODE
+  description:
+    '@default': Maintenance notification damage code.
+    label:
+      '@description': Maintenance notification damage code.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

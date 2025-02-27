@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 50e7ade2-6bd5-45a5-ac72-0c8f5a2c6b1f
+  columnlogicalname: MAINTNOTIFDAMAGECODECATALOG
+  description:
+    '@default': Damage Code Catalog
+    label:
+      '@description': Damage Code Catalog
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

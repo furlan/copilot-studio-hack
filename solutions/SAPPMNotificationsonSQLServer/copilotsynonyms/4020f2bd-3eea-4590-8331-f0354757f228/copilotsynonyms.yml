@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 4020f2bd-3eea-4590-8331-f0354757f228
+  columnlogicalname: MAINTENANCENOTIFICATION
+  description:
+    '@default': Indicates the unique identifier of a maintenance notification.
+    label:
+      '@description': Indicates the unique identifier of a maintenance notification.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

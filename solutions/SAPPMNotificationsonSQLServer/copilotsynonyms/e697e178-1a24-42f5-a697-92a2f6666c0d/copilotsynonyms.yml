@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e697e178-1a24-42f5-a697-92a2f6666c0d
+  columnlogicalname: RELEVANTEQUIPMENT
+  description:
+    '@default': Equipment Affected
+    label:
+      '@description': Equipment Affected
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

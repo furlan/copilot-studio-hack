@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': c5aa76cd-2f58-469c-9764-4be7562d37bd
+  columnlogicalname: MAINTENANCEPLANNINGPLANT
+  description:
+    '@default': Indicates the planning plant associated with the maintenance notification.
+    label:
+      '@description': Indicates the planning plant associated with the maintenance notification.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

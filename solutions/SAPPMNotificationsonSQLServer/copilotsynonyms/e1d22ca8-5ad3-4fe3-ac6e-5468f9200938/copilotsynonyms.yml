@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e1d22ca8-5ad3-4fe3-ac6e-5468f9200938
+  columnlogicalname: MAINTENANCENOTIFICATIONITEM
+  description:
+    '@default': Item Number in Item Record
+    label:
+      '@description': Item Number in Item Record
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

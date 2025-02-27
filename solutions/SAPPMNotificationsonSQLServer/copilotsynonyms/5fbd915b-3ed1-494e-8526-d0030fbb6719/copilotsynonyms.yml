@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 5fbd915b-3ed1-494e-8526-d0030fbb6719
+  columnlogicalname: LASTCHANGEDATETIME
+  description:
+    '@default': Date time last changed
+    label:
+      '@description': Date time last changed
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

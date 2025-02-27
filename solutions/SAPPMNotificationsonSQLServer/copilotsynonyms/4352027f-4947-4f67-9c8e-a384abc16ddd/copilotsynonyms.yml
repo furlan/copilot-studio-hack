@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 4352027f-4947-4f67-9c8e-a384abc16ddd
+  columnlogicalname: RELEVANTFUNCTIONALLOCATION
+  description:
+    '@default': Functional Location Affected
+    label:
+      '@description': Functional Location Affected
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

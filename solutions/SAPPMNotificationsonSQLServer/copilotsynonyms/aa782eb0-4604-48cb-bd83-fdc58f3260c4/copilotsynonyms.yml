@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': aa782eb0-4604-48cb-bd83-fdc58f3260c4
+  columnlogicalname: MAINTENANCEPLANNINGPLANT
+  description:
+    '@default': Maintenance Planning Plant
+    label:
+      '@description': Maintenance Planning Plant
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

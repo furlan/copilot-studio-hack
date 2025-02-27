@@ -1,0 +1,10 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.topic.MultipleTopicsMatched
+  componenttype: 9
+  description: This system topic triggers when the copilot matches multiple Topics with the incoming message and needs to clarify which one should be triggered.
+  iscustomizable: 0
+  name: Multiple Topics Matched
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,35 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.knowledge.dboI_PMNotifMaintenanceData_dboI_MaintNotificationTask
+  componenttype: 16
+  description: >-
+    These records contain information about maintenance notifications.
+
+    The table I_PMNotifMaintenanceData contains information about maintenance notifications in general. Use this table to as the starting point and search specific details on the other tables.
+
+    This table provides the data to answer the following business questions:
+
+    For which maintenance notification can you view details?
+
+    What are the malfunction details for this maintenance notification?
+
+    Which technical object is associated with this maintenance notification?
+
+    What are the details of detection method associated with this maintenance notification?
+
+
+    The table I_MaintNotificationCauseData contains information about maintenance notifications items.
+
+
+    The table I_MaintNotificationActyData contains information about maintenance notifications activities performed during maintenance processing.
+
+
+    The table I_MaintNotificationTaskData contains information about maintenance notifications tasks. If maintenance tasks are known, they need to be defined in task tab. It is part of planning. Code groups related to tasks are defined as part of catalogs which needs to be created earlier.
+
+
+    The table I_MaintNotificationCauseData contains information about maintenance notifications causes.
+  iscustomizable: 0
+  name: Notifications records
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

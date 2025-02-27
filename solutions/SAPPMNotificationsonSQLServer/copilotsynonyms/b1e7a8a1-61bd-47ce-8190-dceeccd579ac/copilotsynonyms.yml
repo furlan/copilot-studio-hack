@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': b1e7a8a1-61bd-47ce-8190-dceeccd579ac
+  columnlogicalname: MAINTNOTIFICATIONCAUSECODE
+  description:
+    '@default': Maintenance notification cause code.
+    label:
+      '@description': Maintenance notification cause code.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

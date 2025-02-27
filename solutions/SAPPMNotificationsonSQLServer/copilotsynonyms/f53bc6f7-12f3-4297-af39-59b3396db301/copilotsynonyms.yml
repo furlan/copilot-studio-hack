@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': f53bc6f7-12f3-4297-af39-59b3396db301
+  columnlogicalname: TASKLISTGROUP
+  description:
+    '@default': Key for Task List Group
+    label:
+      '@description': Key for Task List Group
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 943b9d91-553f-48d6-8745-e6317f1346c1
+  columnlogicalname: PREVIOUSFINALDUEDATE
+  description:
+    '@default': Previous Final Due Date
+    label:
+      '@description': Previous Final Due Date
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

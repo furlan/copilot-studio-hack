@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e3145392-67ff-4dda-b916-7d745690cb16
+  columnlogicalname: LATESTACCEPTABLECOMPLETIONDATE
+  description:
+    '@default': Final Due Date
+    label:
+      '@description': Final Due Date
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

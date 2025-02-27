@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 403e2a29-5a5d-47e0-9700-dbbd039bebe6
+  columnlogicalname: MAINTNOTIFPROCESSSUBPHASECODE
+  description:
+    '@default': Process Subphase
+    label:
+      '@description': Process Subphase
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

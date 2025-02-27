@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 96ad53dc-6fa0-4188-9f33-a3c4283eccac
+  columnlogicalname: LOCATIONDESCRIPTION
+  description:
+    '@default': Description of Current Location
+    label:
+      '@description': Description of Current Location
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,9 @@
+dvtablesearchentity:
+  '@dvtablesearchentityid': 20b653cd-a4f4-46dd-8009-dc874ff97813
+  dvtablesearch:
+    dvtablesearchid: 8bdd20fe-ab0e-4685-a029-977f64753d84
+  entitylogicalname: '[dbo].[I_MaintNotificationItemData]'
+  iscustomizable: 0
+  name: I_MaintNotificationItemData
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 7de5ae94-3a57-4fa1-ae75-bc4a3d446757
+  columnlogicalname: SYSTCONDITIONAFTERCOMPLETION
+  description:
+    '@default': System Condition After Completion of Task
+    label:
+      '@description': System Condition After Completion of Task
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 387a5472-eb23-40f9-b7e1-3dfe5accc28c
+  columnlogicalname: MAINTENANCEPLANCALLNUMBER
+  description:
+    '@default': Maintenance Plan Call Number
+    label:
+      '@description': Maintenance Plan Call Number
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

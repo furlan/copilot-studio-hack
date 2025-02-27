@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 3860e998-1960-47b5-b9d2-0f7f0c313f91
+  columnlogicalname: MALFUNCTIONSTARTDATE
+  description:
+    '@default': Indicates the date on which the malfunction started.
+    label:
+      '@description': Indicates the date on which the malfunction started.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

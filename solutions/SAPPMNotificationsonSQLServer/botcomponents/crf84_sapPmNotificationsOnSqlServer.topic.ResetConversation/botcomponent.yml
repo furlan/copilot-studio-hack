@@ -1,0 +1,9 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.topic.ResetConversation
+  componenttype: 9
+  iscustomizable: 0
+  name: Reset Conversation
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

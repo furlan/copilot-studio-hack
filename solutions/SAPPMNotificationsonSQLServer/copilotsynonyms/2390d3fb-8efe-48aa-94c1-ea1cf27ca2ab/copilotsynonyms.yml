@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 2390d3fb-8efe-48aa-94c1-ea1cf27ca2ab
+  columnlogicalname: TASKLISTGROUPCOUNTER
+  description:
+    '@default': Group Counter
+    label:
+      '@description': Group Counter
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

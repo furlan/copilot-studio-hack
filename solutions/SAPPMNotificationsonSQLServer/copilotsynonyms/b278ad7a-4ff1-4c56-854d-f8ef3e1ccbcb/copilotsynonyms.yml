@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': b278ad7a-4ff1-4c56-854d-f8ef3e1ccbcb
+  columnlogicalname: NOTIFICATIONTYPE
+  description:
+    '@default': Type of the maintenance notification
+    label:
+      '@description': Type of the maintenance notification
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

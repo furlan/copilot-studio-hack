@@ -1,0 +1,9 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.topic.StartOver
+  componenttype: 9
+  iscustomizable: 0
+  name: Start Over
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

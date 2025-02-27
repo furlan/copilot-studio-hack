@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': a3a9ce05-593f-4052-9334-3617d243f80c
+  columnlogicalname: MAINTNOTIFDETECTIONCATALOG
+  description:
+    '@default': Detection Method Profile
+    label:
+      '@description': Detection Method Profile
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

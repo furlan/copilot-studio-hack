@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 9e395e78-141b-4a85-a607-7c408bb4cab7
+  columnlogicalname: MALFUNCTIONENDTIME
+  description:
+    '@default': Indicates the time at which the malfunction ended.
+    label:
+      '@description': Indicates the time at which the malfunction ended.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

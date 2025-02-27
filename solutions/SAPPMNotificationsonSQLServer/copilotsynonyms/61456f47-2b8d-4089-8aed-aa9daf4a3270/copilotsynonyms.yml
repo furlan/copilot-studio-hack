@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 61456f47-2b8d-4089-8aed-aa9daf4a3270
+  columnlogicalname: NOTIFICATIONORIGIN
+  description:
+    '@default': Origin of the maintenance notification
+    label:
+      '@description': Origin of the maintenance notification
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

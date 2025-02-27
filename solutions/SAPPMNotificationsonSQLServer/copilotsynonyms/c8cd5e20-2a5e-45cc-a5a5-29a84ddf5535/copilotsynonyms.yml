@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': c8cd5e20-2a5e-45cc-a5a5-29a84ddf5535
+  columnlogicalname: AVAILYAFTERCONCLUSIONPERCENT
+  description:
+    '@default': Availability After Completion of Task
+    label:
+      '@description': Availability After Completion of Task
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

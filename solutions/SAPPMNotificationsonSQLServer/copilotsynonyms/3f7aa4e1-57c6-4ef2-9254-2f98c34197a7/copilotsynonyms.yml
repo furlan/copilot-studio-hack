@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 3f7aa4e1-57c6-4ef2-9254-2f98c34197a7
+  columnlogicalname: AVAILYAFTERMALFUNCTIONPERCENT
+  description:
+    '@default': Availability After Malfunction
+    label:
+      '@description': Availability After Malfunction
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

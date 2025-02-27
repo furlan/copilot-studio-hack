@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 64ebe282-3ffc-4df6-85b3-b7d005fdc13d
+  columnlogicalname: MALFUNCTIONEFFECT
+  description:
+    '@default': Effect on Operation
+    label:
+      '@description': Effect on Operation
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

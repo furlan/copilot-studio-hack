@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 47b623e4-58eb-4d99-af81-f85aae4f81a4
+  columnlogicalname: ASSEMBLY
+  description:
+    '@default': Indicates the unique identifier of an assembly.
+    label:
+      '@description': Indicates the unique identifier of an assembly.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

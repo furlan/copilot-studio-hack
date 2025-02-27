@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': ecce2e77-8bfc-4ec7-ac59-2d41b997fd30
+  columnlogicalname: SYSTCONDITIONBEFOREMALFUNCTION
+  description:
+    '@default': System Condition Before Malfunction
+    label:
+      '@description': System Condition Before Malfunction
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

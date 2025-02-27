@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 31442586-0a70-488d-bf2c-d57281d1fd9b
+  columnlogicalname: MAINTENANCEITEM
+  description:
+    '@default': Maintenance item
+    label:
+      '@description': Maintenance item
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

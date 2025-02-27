@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': c497db7b-db12-49cf-be21-58aadd6e550d
+  columnlogicalname: EQUIPMENT
+  description:
+    '@default': Indicates the unique identifier of an equipment.
+    label:
+      '@description': Indicates the unique identifier of an equipment.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

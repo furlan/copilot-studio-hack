@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 14f6d938-9cb9-45f7-9461-396bf7d299de
+  columnlogicalname: MAINTNOTIFICATIONDAMAGECODE
+  description:
+    '@default': Damage Code
+    label:
+      '@description': Damage Code
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

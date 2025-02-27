@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e2de025d-8430-4f7c-ac57-1910b7d5a401
+  columnlogicalname: MAINTNOTIFOBJPRTCODECATALOG
+  description:
+    '@default': Object Part Code catalog
+    label:
+      '@description': Object Part Code catalog
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 5b340d9c-42ff-4c5a-90f1-023836b871b5
+  columnlogicalname: MAINTNOTIFDAMAGECODEGROUP
+  description:
+    '@default': Damage Code group
+    label:
+      '@description': Damage Code group
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,4 @@
+botcomponent_dvtablesearch:
+  '@botcomponentid.schemaname': crf84_sapPmNotificationsOnSqlServer.knowledge.dboI_PMNotifMaintenanceData_dboI_MaintNotificationTask
+  '@dvtablesearchid.dvtablesearchid': 8bdd20fe-ab0e-4685-a029-977f64753d84
+  iscustomizable: 1

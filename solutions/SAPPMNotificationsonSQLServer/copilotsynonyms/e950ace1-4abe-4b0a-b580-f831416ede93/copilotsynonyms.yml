@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e950ace1-4abe-4b0a-b580-f831416ede93
+  columnlogicalname: MAINTENANCEREVISION
+  description:
+    '@default': Revision for Plant Maintenance and Customer Service
+    label:
+      '@description': Revision for Plant Maintenance and Customer Service
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

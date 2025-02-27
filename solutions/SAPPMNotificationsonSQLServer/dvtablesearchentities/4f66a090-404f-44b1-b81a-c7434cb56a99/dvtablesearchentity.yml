@@ -1,0 +1,9 @@
+dvtablesearchentity:
+  '@dvtablesearchentityid': 4f66a090-404f-44b1-b81a-c7434cb56a99
+  dvtablesearch:
+    dvtablesearchid: 8bdd20fe-ab0e-4685-a029-977f64753d84
+  entitylogicalname: '[dbo].[I_PMNotifMaintenanceData]'
+  iscustomizable: 0
+  name: I_PMNotifMaintenanceData
+  statecode: 0
+  statuscode: 1

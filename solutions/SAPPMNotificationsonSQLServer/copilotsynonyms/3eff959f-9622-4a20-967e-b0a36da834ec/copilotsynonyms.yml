@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 3eff959f-9622-4a20-967e-b0a36da834ec
+  columnlogicalname: MAINTOBJECTLOCACCTASSGMTNMBR
+  description:
+    '@default': Location and account assignment for technical object
+    label:
+      '@description': Location and account assignment for technical object
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

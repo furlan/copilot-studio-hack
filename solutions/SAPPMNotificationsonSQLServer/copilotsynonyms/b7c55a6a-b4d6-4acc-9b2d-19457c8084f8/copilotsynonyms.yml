@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': b7c55a6a-b4d6-4acc-9b2d-19457c8084f8
+  columnlogicalname: SALESDOCUMENTITEM
+  description:
+    '@default': Sales Document item
+    label:
+      '@description': Sales Document item
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

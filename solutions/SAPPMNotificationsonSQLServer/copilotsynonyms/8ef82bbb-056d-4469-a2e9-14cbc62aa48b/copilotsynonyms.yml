@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 8ef82bbb-056d-4469-a2e9-14cbc62aa48b
+  columnlogicalname: COSTCENTER
+  description:
+    '@default': Cost center
+    label:
+      '@description': Cost center
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

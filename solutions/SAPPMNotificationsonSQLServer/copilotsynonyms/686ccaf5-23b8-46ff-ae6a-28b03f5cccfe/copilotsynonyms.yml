@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 686ccaf5-23b8-46ff-ae6a-28b03f5cccfe
+  columnlogicalname: NOTIFICATIONPERSONRESPONSIBLE
+  description:
+    '@default': Indicates a unique number of the person who is responsible for the maintenance notification.
+    label:
+      '@description': Indicates a unique number of the person who is responsible for the maintenance notification.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

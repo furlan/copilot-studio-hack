@@ -1,0 +1,10 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.topic.Greeting
+  componenttype: 9
+  description: This topic is triggered when the user greets the copilot.
+  iscustomizable: 0
+  name: Greeting
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

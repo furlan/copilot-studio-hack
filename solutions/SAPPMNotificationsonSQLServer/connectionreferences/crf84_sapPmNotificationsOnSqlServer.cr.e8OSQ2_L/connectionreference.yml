@@ -1,0 +1,7 @@
+connectionreference:
+  '@connectionreferencelogicalname': crf84_sapPmNotificationsOnSqlServer.cr.e8OSQ2_L
+  connectorid: /providers/Microsoft.PowerApps/apis/shared_sql
+  iscustomizable: 0
+  promptingbehavior: 0
+  statecode: 0
+  statuscode: 1

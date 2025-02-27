@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 2eb84a95-9cc7-4979-b91a-dff62fda298c
+  columnlogicalname: MAINTNOTIFPROCESSINGCONTEXT
+  description:
+    '@default': Maintenance Notification Processing Context
+    label:
+      '@description': Maintenance Notification Processing Context
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

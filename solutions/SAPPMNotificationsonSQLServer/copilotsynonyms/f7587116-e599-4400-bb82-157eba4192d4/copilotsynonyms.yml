@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': f7587116-e599-4400-bb82-157eba4192d4
+  columnlogicalname: MAINTNOTIFACTYTXT
+  description:
+    '@default': Activity Text
+    label:
+      '@description': Activity Text
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

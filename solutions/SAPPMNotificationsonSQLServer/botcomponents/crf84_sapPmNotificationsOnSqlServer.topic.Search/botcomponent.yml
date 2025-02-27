@@ -1,0 +1,10 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.topic.Search
+  componenttype: 9
+  description: Create generative answers from knowledge sources.
+  iscustomizable: 0
+  name: Conversational boosting
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

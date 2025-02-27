@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': ad88b5c8-2dbb-4860-99e8-f90eb26f5b5f
+  columnlogicalname: MAINTENANCEPLANNERGROUP
+  description:
+    '@default': Indicates the planner group to which the maintenance notification belongs.
+    label:
+      '@description': Indicates the planner group to which the maintenance notification belongs.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 3a9d855f-e4ee-4e7c-9e61-e60bf51e6eb7
+  statecode: 0
+  statuscode: 1

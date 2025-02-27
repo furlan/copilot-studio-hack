@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 19ac2215-73db-448c-aaa3-aec5d3115df3
+  columnlogicalname: MAINTOBJECTDOWNTIMEDURATION
+  description:
+    '@default': Indicates the amount of time during which the object was not working.
+    label:
+      '@description': Indicates the amount of time during which the object was not working.
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

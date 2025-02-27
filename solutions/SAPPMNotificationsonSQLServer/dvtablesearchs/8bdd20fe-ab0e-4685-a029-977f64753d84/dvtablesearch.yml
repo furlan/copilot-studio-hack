@@ -1,0 +1,14 @@
+dvtablesearch:
+  '@dvtablesearchid': 8bdd20fe-ab0e-4685-a029-977f64753d84
+  connectionreference:
+    connectionreferencelogicalname: crf84_sapPmNotificationsOnSqlServer.cr.e8OSQ2_L
+  iscustomizable: 0
+  knowledgeconfig: >-
+    {
+      "sqlServerName": "copilothack.database.windows.net",
+      "sqlDbName": "sqlcopilothack"
+    }
+  name: dboI_PMNotifMaintenanceData_dboI_MaintNotificationTaskDatadboI_MaintNotificati_HNMwmSH6cZ4i35bbCfbb4
+  searchtype: 1
+  statecode: 0
+  statuscode: 1

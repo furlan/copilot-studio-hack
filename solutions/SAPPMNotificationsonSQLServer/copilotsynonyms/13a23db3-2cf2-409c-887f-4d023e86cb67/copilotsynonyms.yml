@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 13a23db3-2cf2-409c-887f-4d023e86cb67
+  columnlogicalname: MAINTENANCENOTIFICATION
+  description:
+    '@default': Notification Number
+    label:
+      '@description': Notification Number
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 1e452c1b-cae4-4a7d-b3f1-edaefb537266
+  columnlogicalname: MAINTOBJDOWNTIMEDURATIONUNIT
+  description:
+    '@default': Unit for Breakdown Duration
+    label:
+      '@description': Unit for Breakdown Duration
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

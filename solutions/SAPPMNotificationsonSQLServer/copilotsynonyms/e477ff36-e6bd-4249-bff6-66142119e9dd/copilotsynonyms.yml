@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': e477ff36-e6bd-4249-bff6-66142119e9dd
+  columnlogicalname: MAINTENANCEPLANNERGROUP
+  description:
+    '@default': Planner Group for Customer Service and Plant Maintenance
+    label:
+      '@description': Planner Group for Customer Service and Plant Maintenance
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': d58faeb5-39c6-4ea6-bc46-daec7258901a
+  columnlogicalname: AVAILYBEFOREMALFUNCTIONPERCENT
+  description:
+    '@default': Availability Before Malfunction
+    label:
+      '@description': Availability Before Malfunction
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

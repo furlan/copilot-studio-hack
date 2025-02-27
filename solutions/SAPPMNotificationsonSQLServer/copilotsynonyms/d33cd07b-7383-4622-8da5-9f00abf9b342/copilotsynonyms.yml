@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': d33cd07b-7383-4622-8da5-9f00abf9b342
+  columnlogicalname: INSPECTIONDATE
+  description:
+    '@default': Date of Technical Inspection
+    label:
+      '@description': Date of Technical Inspection
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

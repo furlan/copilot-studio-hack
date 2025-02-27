@@ -1,0 +1,9 @@
+botcomponent:
+  '@schemaname': crf84_sapPmNotificationsOnSqlServer.gpt.default
+  componenttype: 15
+  iscustomizable: 0
+  name: SAP PM Notifications on SQL Server
+  parentbotid:
+    schemaname: crf84_sapPmNotificationsOnSqlServer
+  statecode: 0
+  statuscode: 1

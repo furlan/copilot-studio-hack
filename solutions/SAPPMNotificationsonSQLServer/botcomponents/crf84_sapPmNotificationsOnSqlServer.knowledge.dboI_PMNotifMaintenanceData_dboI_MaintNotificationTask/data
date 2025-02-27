@@ -1,0 +1,4 @@
+kind: KnowledgeSourceConfiguration
+source:
+  kind: FederatedStructuredSearchSource
+  skillConfiguration: dboI_PMNotifMaintenanceData_dboI_MaintNotificationTaskDatadboI_MaintNotificati_HNMwmSH6cZ4i35bbCfbb4

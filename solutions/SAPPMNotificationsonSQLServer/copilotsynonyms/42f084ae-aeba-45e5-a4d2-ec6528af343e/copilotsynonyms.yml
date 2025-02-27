@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 42f084ae-aeba-45e5-a4d2-ec6528af343e
+  columnlogicalname: DEFECTCLASS
+  description:
+    '@default': Defect class
+    label:
+      '@description': Defect class
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

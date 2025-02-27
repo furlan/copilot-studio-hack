@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 0c56d39a-e426-45d4-9caa-ccdf74ca0fc6
+  columnlogicalname: MAINTNOTIFACTIVITYCODEGROUP
+  description:
+    '@default': Activity code group
+    label:
+      '@description': Activity code group
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

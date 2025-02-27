@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': f408b72f-9143-41e1-8558-710cc43b8ccd
+  columnlogicalname: INSPECTEDBYUSER
+  description:
+    '@default': Name of Person Responsible for Technical Inspection
+    label:
+      '@description': Name of Person Responsible for Technical Inspection
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

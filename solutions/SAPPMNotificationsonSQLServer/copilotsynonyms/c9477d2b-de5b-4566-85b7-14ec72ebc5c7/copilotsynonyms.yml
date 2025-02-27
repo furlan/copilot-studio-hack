@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': c9477d2b-de5b-4566-85b7-14ec72ebc5c7
+  columnlogicalname: CONTROLLINGAREA
+  description:
+    '@default': Controlling Area
+    label:
+      '@description': Controlling Area
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

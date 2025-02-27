@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 2f365de5-2aa6-4fd4-9bd6-52e74de86d8a
+  columnlogicalname: SYSTCONDITIONAFTERMALFUNCTION
+  description:
+    '@default': System Condition After Malfunction
+    label:
+      '@description': System Condition After Malfunction
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: 4f66a090-404f-44b1-b81a-c7434cb56a99
+  statecode: 0
+  statuscode: 1

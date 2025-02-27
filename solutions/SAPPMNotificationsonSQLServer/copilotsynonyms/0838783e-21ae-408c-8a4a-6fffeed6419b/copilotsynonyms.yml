@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 0838783e-21ae-408c-8a4a-6fffeed6419b
+  columnlogicalname: NOTIFICATIONCREATIONDATE
+  description:
+    '@default': Date of Notification
+    label:
+      '@description': Date of Notification
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1

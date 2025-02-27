@@ -1,0 +1,13 @@
+copilotsynonyms:
+  '@copilotsynonymsid': 127cfa6e-98e9-4c14-9ad9-fd9d4dea5bb2
+  columnlogicalname: NOTIFICATIONTYPE
+  description:
+    '@default': Notification type
+    label:
+      '@description': Notification type
+      '@languagecode': 1033
+  iscustomizable: 0
+  skillentity:
+    dvtablesearchentityid: cd8211d9-018e-4956-9163-c4df511b8192
+  statecode: 0
+  statuscode: 1
