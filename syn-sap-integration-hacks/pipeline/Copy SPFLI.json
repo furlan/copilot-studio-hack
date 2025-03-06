@@ -17,6 +17,8 @@
 				"typeProperties": {
 					"source": {
 						"type": "SapTableSource",
+						"rfcTableOptions": "CARRID EQ 'AA'",
+						"customRfcReadTableFunctionModule": "",
 						"partitionOption": "None"
 					},
 					"sink": {
