@@ -1,0 +1,5004 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"type": "string",
+			"metadata": "Workspace name",
+			"defaultValue": "syn-sap-integration-hacks"
+		},
+		"AzureSqlDatabasecopilothack_servicePrincipalCredential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'AzureSqlDatabasecopilothack'"
+		},
+		"SapOdp1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapOdp1'"
+		},
+		"SapTable_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SapTable'"
+		},
+		"syn-sap-integration-hacks-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'syn-sap-integration-hacks-WorkspaceDefaultSqlServer'",
+			"defaultValue": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:syn-sap-integration-hacks.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "copilothack.database.windows.net"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sqlcopilothack"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "c1349d36-bdc4-4186-b409-010850e5c3c1"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+		},
+		"SapOdp1_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "100"
+		},
+		"SapOdp1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ODPUSER"
+		},
+		"SapOdp1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.0.0.84"
+		},
+		"SapOdp1_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"SapTable_properties_typeProperties_clientId": {
+			"type": "string",
+			"defaultValue": "100"
+		},
+		"SapTable_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ODPUSER"
+		},
+		"SapTable_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "10.0.0.84"
+		},
+		"SapTable_properties_typeProperties_systemNumber": {
+			"type": "string",
+			"defaultValue": "00"
+		},
+		"syn-sap-integration-hacks-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dlssapintegrationhacks.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('workspaceName'), '/Copy SPFLI')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy SPFLI",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"rfcTableOptions": "CARRID EQ 'AA'",
+								"customRfcReadTableFunctionModule": "",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SapTableSPFLI",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "Parquet1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-12T23:59:05Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SapTableSPFLI')]",
+				"[concat(variables('workspaceId'), '/datasets/Parquet1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Load Maintenance Plan Data')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow IMAINTPLANDATA delta",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"IMAINTPLANDATA": {},
+									"DeltaIMAINTPLANDATA": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "fssapintegrationhacks/sap"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-11T18:47:28Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/dataflows/Dataflow1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/syn-sap-integration-hacks-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Load SAP Notifications to SQLDB')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_IMAINTNOTIF",
+						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "IMAINTNOTIF"
+							},
+							{
+								"name": "Destination",
+								"value": "fssapintegrationhacks/sap/pm/IMAINTNOTIF"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"validateDataConsistency": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCENOTIFICATION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCENOTIFICATION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTPRIORITY",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTPRIORITY",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTPRIORITYTYPE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTPRIORITYTYPE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONTYPE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONTYPE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFPROCESSINGPHASE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFPROCESSINGPHASE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "CREATEDBYUSER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "CREATEDBYUSER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LASTCHANGEDBYUSER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LASTCHANGEDBYUSER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "REPORTEDBYUSER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "REPORTEDBYUSER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "CREATIONDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "CREATIONDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "LASTCHANGETIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "LASTCHANGETIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "LASTCHANGEDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "LASTCHANGEDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "CREATIONTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "CREATIONTIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "CREATIONDATETIME",
+											"type": "String",
+											"physicalType": "g"
+										},
+										"sink": {
+											"name": "CREATIONDATETIME",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONTEXT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONTEXT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LONGTEXTLANGUAGE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LONGTEXTLANGUAGE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEORDER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEORDER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "REQUIREDSTARTDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "REQUIREDSTARTDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "REQUIREDSTARTTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "REQUIREDSTARTTIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "REQUIREDENDDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "REQUIREDENDDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "REQUIREDENDTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "REQUIREDENDTIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONCREATIONDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "NOTIFICATIONCREATIONDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONCREATIONTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "NOTIFICATIONCREATIONTIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONREFERENCEDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "NOTIFICATIONREFERENCEDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONHASLONGTEXT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONHASLONGTEXT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFINTERNALID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFINTERNALID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONTIMEZONE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONTIMEZONE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONREFERENCETIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "NOTIFICATIONREFERENCETIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONCOMPLETIONDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "NOTIFICATIONCOMPLETIONDATE",
+											"type": "DateTime",
+											"physicalType": "date"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONCOMPLETIONTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "NOTIFICATIONCOMPLETIONTIME",
+											"type": "TimeSpan",
+											"physicalType": "time"
+										}
+									},
+									{
+										"source": {
+											"name": "WORKCENTERINTERNALID",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "WORKCENTERINTERNALID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "WORKCENTERTYPECODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "WORKCENTERTYPECODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEWORKCENTERPLANT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEWORKCENTERPLANT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFICATIONCATALOG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFICATIONCATALOG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFICATIONCODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFICATIONCODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFICATIONCODEGROUP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFICATIONCODEGROUP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "CATALOGPROFILE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "CATALOGPROFILE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONORIGIN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONORIGIN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ISDELETED",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ISDELETED",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ISCOMPLETED",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ISCOMPLETED",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LASTCHANGEDATETIME",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "LASTCHANGEDATETIME",
+											"type": "Decimal",
+											"physicalType": "decimal"
+										}
+									},
+									{
+										"source": {
+											"name": "SERIALNUMBER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SERIALNUMBER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MATERIAL",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MATERIAL",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ADDITIONALDEVICEDATA",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ADDITIONALDEVICEDATA",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFEXTREFERENCENUMBER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFEXTREFERENCENUMBER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MASTERLANGUAGE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MASTERLANGUAGE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_kff",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTable1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Copy_QMEL",
+						"type": "Copy",
+						"state": "Inactive",
+						"onInactiveMarkAs": "Succeeded",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "IMAINTNOTIF"
+							},
+							{
+								"name": "Destination",
+								"value": "fssapintegrationhacks/sap/pm/IMAINTNOTIF"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"validateDataConsistency": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMNUM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMNUM",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMART",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMART",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMTXT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMTXT",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ARTPR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ARTPR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PRIOK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "PRIOK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ERNAM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ERNAM",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ERDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "ERDAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AENAM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "AENAM",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "AEDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "AEDAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MZEIT",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "MZEIT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "QMDAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMNAM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMNAM",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "STRMN",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "STRMN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "STRUR",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "STRUR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LTRMN",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "LTRMN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LTRUR",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "LTRUR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "WAERS",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "WAERS",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AUFNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "AUFNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "VERID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VERID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "RM_MATNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RM_MATNR",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "RM_WERKS",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RM_WERKS",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SA_AUFNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SA_AUFNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MATNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MATNR",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "REVLV",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "REVLV",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MATKL",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MATKL",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PRDHA",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "PRDHA",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "KZKRI",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KZKRI",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "KZDKZ",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KZDKZ",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "KUNUM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KUNUM",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "FEKNZ",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "FEKNZ",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAKNZ",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAKNZ",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "OBJNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "OBJNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMDAB",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "QMDAB",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMZAB",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "QMZAB",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "RBNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RBNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "RBNRI",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RBNRI",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "INDTX",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "INDTX",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "KZMLA",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KZMLA",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "HERKZ",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "HERKZ",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BEZDT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "BEZDT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BEZUR",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "BEZUR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LIFNUM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LIFNUM",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BUNAME",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "BUNAME",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "VBELN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VBELN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BSTNK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "BSTNK",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "BSTDK",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "BSTDK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SPART",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SPART",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "VKORG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VKORG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "VTWEG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VTWEG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ADRNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ADRNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AEZEIT",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "AEZEIT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ERZEIT",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "ERZEIT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAWERK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAWERK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMKAT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMKAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMGRP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMGRP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QMCOD",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QMCOD",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AUSWIRK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "AUSWIRK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TEILEV",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TEILEV",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PRUEFLOS",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "PRUEFLOS",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 12
+										}
+									},
+									{
+										"source": {
+											"name": "CHARG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "CHARG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LGORTCHARG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LGORTCHARG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LICHN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LICHN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "HERSTELLER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "HERSTELLER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "EMATNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "EMATNR",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "EKORG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "EKORG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BKGRP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "BKGRP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LGORTVORG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LGORTVORG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "FERTAUFNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "FERTAUFNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "FERTAUFPL",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "FERTAUFPL",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 10
+										}
+									},
+									{
+										"source": {
+											"name": "EBELN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "EBELN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "EBELP",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "EBELP",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 5
+										}
+									},
+									{
+										"source": {
+											"name": "MJAHR",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "MJAHR",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 4
+										}
+									},
+									{
+										"source": {
+											"name": "MBLNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MBLNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MBLPO",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "MBLPO",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 4
+										}
+									},
+									{
+										"source": {
+											"name": "LS_KDAUF",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LS_KDAUF",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LS_KDPOS",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "LS_KDPOS",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 6
+										}
+									},
+									{
+										"source": {
+											"name": "LS_VBELN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LS_VBELN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LS_POSNR",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "LS_POSNR",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 6
+										}
+									},
+									{
+										"source": {
+											"name": "CROBJTY",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "CROBJTY",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ARBPL",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "ARBPL",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 8
+										}
+									},
+									{
+										"source": {
+											"name": "ARBPLWERK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ARBPLWERK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "FEART",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "FEART",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PNLKN",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "PNLKN",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 8
+										}
+									},
+									{
+										"source": {
+											"name": "MGEIG",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "MGEIG",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "MGFRD",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "MGFRD",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "MGEIN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MGEIN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BZMNG",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "BZMNG",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "RKMNG",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "RKMNG",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "RGMNG",
+											"type": "Decimal",
+											"physicalType": "P"
+										},
+										"sink": {
+											"name": "RGMNG",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 13
+										}
+									},
+									{
+										"source": {
+											"name": "RKDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "RKDAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "COAUFNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "COAUFNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "QWRNUM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "QWRNUM",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "REFNUM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "REFNUM",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "KDMAT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KDMAT",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "IDNLF",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "IDNLF",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "SERIALNR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SERIALNR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "KZLOESCH",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "KZLOESCH",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "CVP_XBLCK",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "CVP_XBLCK",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PRODDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "PRODDAT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "DEVICEID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "DEVICEID",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "VKBUR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VKBUR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "VKGRP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "VKGRP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AUTKZ",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "AUTKZ",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "BEDID",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "BEDID",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 12
+										}
+									},
+									{
+										"source": {
+											"name": "BEDZL",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "BEDZL",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 8
+										}
+									},
+									{
+										"source": {
+											"name": "PROFIL_TYP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "PROFIL_TYP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PROFIL_ID",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "PROFIL_ID",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 8
+										}
+									},
+									{
+										"source": {
+											"name": "HANDLE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "HANDLE",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "TSEGFL",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TSEGFL",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TSEGTP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TSEGTP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TZONSO",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TZONSO",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TZONID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TZONID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "FUNKTION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "FUNKTION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/INSTN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "INSTN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/MNUMM",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "MNUMM",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 24
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/OSSYS",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "OSSYS",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/DBSYS",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "DBSYS",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/REL",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "REL",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/COMP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "COMP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/FRONT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "FRONT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/SYSTYP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SYSTYP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/ADDID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ADDID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/ADDREL",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ADDREL",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/TSTMP",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "TSTMP",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 2,
+											"precision": 14
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/STATUS",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "STATUS",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/ERDAT",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "ERDAT2",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/ERZEIT",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "ERZEIT2",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "/SAPSMOSS/SYSID",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SYSID",
+											"type": "String",
+											"physicalType": "char"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SapTableQMEL",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSqlTableQMEL",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Maintenance Notification Data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SapTableSource",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MANDT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCENOTIFICATION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCENOTIFICATION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MALFUNCTIONEFFECT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MALFUNCTIONEFFECT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "EQUIPMENT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "EQUIPMENT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "ASSEMBLY",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "ASSEMBLY",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEPLANNINGPLANT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEPLANNINGPLANT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEPLANNERGROUP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEPLANNERGROUP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LOCATIONDESCRIPTION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "LOCATIONDESCRIPTION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEOBJECTISDOWN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEOBJECTISDOWN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MALFUNCTIONSTARTDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "MALFUNCTIONSTARTDATE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MALFUNCTIONENDDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "MALFUNCTIONENDDATE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MALFUNCTIONSTARTTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "MALFUNCTIONSTARTTIME",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MALFUNCTIONENDTIME",
+											"type": "String",
+											"physicalType": "T"
+										},
+										"sink": {
+											"name": "MALFUNCTIONENDTIME",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "INSPECTIONDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "INSPECTIONDATE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "INSPECTEDBYUSER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "INSPECTEDBYUSER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEREVISION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEREVISION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTOBJECTDOWNTIMEDURATION",
+											"type": "Double",
+											"physicalType": "F"
+										},
+										"sink": {
+											"name": "MAINTOBJECTDOWNTIMEDURATION",
+											"type": "Single",
+											"physicalType": "real"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SALESDOCUMENT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SALESDOCUMENT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SALESDOCUMENTITEM",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "SALESDOCUMENTITEM",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEPLAN",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEPLAN",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEITEM",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEITEM",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEACTIVITYTYPE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCEACTIVITYTYPE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "RELEVANTFUNCTIONALLOCATION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RELEVANTFUNCTIONALLOCATION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "RELEVANTEQUIPMENT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "RELEVANTEQUIPMENT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "AVAILYAFTERCONCLUSIONPERCENT",
+											"type": "String",
+											"physicalType": "N"
+										},
+										"sink": {
+											"name": "AVAILYAFTERCONCLUSIONPERCENT",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SYSTCONDITIONAFTERMALFUNCTION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SYSTCONDITIONAFTERMALFUNCTION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "SYSTCONDITIONAFTERCOMPLETION",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "SYSTCONDITIONAFTERCOMPLETION",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "LATESTACCEPTABLECOMPLETIONDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "LATESTACCEPTABLECOMPLETIONDATE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "NOTIFICATIONPERSONRESPONSIBLE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "NOTIFICATIONPERSONRESPONSIBLE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFPROCESSPHASECODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFPROCESSPHASECODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFREJECTIONREASONCODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFREJECTIONREASONCODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCEPLANCALLNUMBER",
+											"type": "Int32",
+											"physicalType": "I"
+										},
+										"sink": {
+											"name": "MAINTENANCEPLANCALLNUMBER",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTENANCETASKLISTTYPE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTENANCETASKLISTTYPE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TASKLISTGROUP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TASKLISTGROUP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "TASKLISTGROUPCOUNTER",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "TASKLISTGROUPCOUNTER",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFDETECTIONCATALOG",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFDETECTIONCATALOG",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFDETECTIONCODEGROUP",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFDETECTIONCODEGROUP",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFDETECTIONCODE",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFDETECTIONCODE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "MAINTNOTIFPROCESSINGCONTEXT",
+											"type": "String",
+											"physicalType": "C"
+										},
+										"sink": {
+											"name": "MAINTNOTIFPROCESSINGCONTEXT",
+											"type": "String",
+											"physicalType": "char"
+										}
+									},
+									{
+										"source": {
+											"name": "PREVIOUSFINALDUEDATE",
+											"type": "String",
+											"physicalType": "D"
+										},
+										"sink": {
+											"name": "PREVIOUSFINALDUEDATE",
+											"type": "String",
+											"physicalType": "char"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SapTable_IPMNTFMAINTDATA",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "AzureSql_I_PMNotifMaintenanceData",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Maintenance Notification Item",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Df_I_MaintNotificationItemData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"INOTIFITEMDATA": {},
+									"MaintNotificationItemData1": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"continuationSettings": {
+								"customizedCheckpointKey": "a77f8f48-d52f-4ca9-8812-1ad6a70b6f8f"
+							}
+						}
+					},
+					{
+						"name": "Maintenance Notification Activity",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Df_I_MaintNotificationActyData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"INOTIFACTYDATA": {},
+									"MaintNotificationActyData": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"continuationSettings": {
+								"customizedCheckpointKey": "f77688e3-3571-4312-b684-b97e4353280e"
+							}
+						}
+					},
+					{
+						"name": "Maintenance Notification Cause",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Df_I_MaintNotificationCauseData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"INOTIFCAUSEDATA": {},
+									"MaintNotificationCauseData": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"continuationSettings": {
+								"customizedCheckpointKey": "f78a157d-ae74-4b06-acd4-956c87ca0faf"
+							}
+						}
+					},
+					{
+						"name": "Maintenance Notification Task",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "Dt_I_MaintNotificationTaskData",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"INOTIFTASKDATA": {},
+									"MaintNotificationTaskData": {}
+								}
+							},
+							"staging": {
+								"linkedService": {
+									"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+									"type": "LinkedServiceReference"
+								},
+								"folderPath": "fssapintegrationhacks/synapse/workspaces/syn-sap-integration-hacks"
+							},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine",
+							"continuationSettings": {
+								"customizedCheckpointKey": "6ceaf60c-af4b-40a6-aeb3-b5292dcc85a6"
+							}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2025-02-19T04:22:12Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_kff')]",
+				"[concat(variables('workspaceId'), '/datasets/AzureSqlTable1')]",
+				"[concat(variables('workspaceId'), '/datasets/SapTableQMEL')]",
+				"[concat(variables('workspaceId'), '/datasets/AzureSqlTableQMEL')]",
+				"[concat(variables('workspaceId'), '/datasets/SapTable_IPMNTFMAINTDATA')]",
+				"[concat(variables('workspaceId'), '/datasets/AzureSql_I_PMNotifMaintenanceData')]",
+				"[concat(variables('workspaceId'), '/dataflows/Df_I_MaintNotificationItemData')]",
+				"[concat(variables('workspaceId'), '/linkedServices/syn-sap-integration-hacks-WorkspaceDefaultStorage')]",
+				"[concat(variables('workspaceId'), '/dataflows/Df_I_MaintNotificationActyData')]",
+				"[concat(variables('workspaceId'), '/dataflows/Df_I_MaintNotificationCauseData')]",
+				"[concat(variables('workspaceId'), '/dataflows/Dt_I_MaintNotificationTaskData')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSqlTable1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabasecopilothack",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCENOTIFICATION",
+						"type": "char"
+					},
+					{
+						"name": "MAINTPRIORITY",
+						"type": "char"
+					},
+					{
+						"name": "MAINTPRIORITYTYPE",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFICATIONTYPE",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFPROCESSINGPHASE",
+						"type": "char"
+					},
+					{
+						"name": "CREATEDBYUSER",
+						"type": "char"
+					},
+					{
+						"name": "LASTCHANGEDBYUSER",
+						"type": "char"
+					},
+					{
+						"name": "REPORTEDBYUSER",
+						"type": "char"
+					},
+					{
+						"name": "CREATIONDATE",
+						"type": "date"
+					},
+					{
+						"name": "LASTCHANGETIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "LASTCHANGEDATE",
+						"type": "date"
+					},
+					{
+						"name": "CREATIONTIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "CREATIONDATETIME",
+						"type": "varchar"
+					},
+					{
+						"name": "NOTIFICATIONTEXT",
+						"type": "char"
+					},
+					{
+						"name": "LONGTEXTLANGUAGE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEORDER",
+						"type": "char"
+					},
+					{
+						"name": "REQUIREDSTARTDATE",
+						"type": "date"
+					},
+					{
+						"name": "REQUIREDSTARTTIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "REQUIREDENDDATE",
+						"type": "date"
+					},
+					{
+						"name": "REQUIREDENDTIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "NOTIFICATIONCREATIONDATE",
+						"type": "date"
+					},
+					{
+						"name": "NOTIFICATIONCREATIONTIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "NOTIFICATIONREFERENCEDATE",
+						"type": "date"
+					},
+					{
+						"name": "NOTIFICATIONHASLONGTEXT",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFINTERNALID",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFICATIONTIMEZONE",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFICATIONREFERENCETIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "NOTIFICATIONCOMPLETIONDATE",
+						"type": "date"
+					},
+					{
+						"name": "NOTIFICATIONCOMPLETIONTIME",
+						"type": "time",
+						"scale": 6
+					},
+					{
+						"name": "WORKCENTERINTERNALID",
+						"type": "char"
+					},
+					{
+						"name": "WORKCENTERTYPECODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEWORKCENTERPLANT",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFICATIONCATALOG",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFICATIONCODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFICATIONCODEGROUP",
+						"type": "char"
+					},
+					{
+						"name": "CATALOGPROFILE",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFICATIONORIGIN",
+						"type": "char"
+					},
+					{
+						"name": "ISDELETED",
+						"type": "char"
+					},
+					{
+						"name": "ISCOMPLETED",
+						"type": "char"
+					},
+					{
+						"name": "LASTCHANGEDATETIME",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "SERIALNUMBER",
+						"type": "char"
+					},
+					{
+						"name": "MATERIAL",
+						"type": "char"
+					},
+					{
+						"name": "ADDITIONALDEVICEDATA",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFEXTREFERENCENUMBER",
+						"type": "char"
+					},
+					{
+						"name": "MASTERLANGUAGE",
+						"type": "char"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "I_MAINTENANCENOTIFICATION"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSqlTableQMEL')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabasecopilothack",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "char"
+					},
+					{
+						"name": "QMNUM",
+						"type": "char"
+					},
+					{
+						"name": "QMART",
+						"type": "char"
+					},
+					{
+						"name": "QMTXT",
+						"type": "varchar"
+					},
+					{
+						"name": "ARTPR",
+						"type": "char"
+					},
+					{
+						"name": "PRIOK",
+						"type": "char"
+					},
+					{
+						"name": "ERNAM",
+						"type": "varchar"
+					},
+					{
+						"name": "ERDAT",
+						"type": "char"
+					},
+					{
+						"name": "AENAM",
+						"type": "varchar"
+					},
+					{
+						"name": "AEDAT",
+						"type": "char"
+					},
+					{
+						"name": "MZEIT",
+						"type": "char"
+					},
+					{
+						"name": "QMDAT",
+						"type": "char"
+					},
+					{
+						"name": "QMNAM",
+						"type": "varchar"
+					},
+					{
+						"name": "STRMN",
+						"type": "char"
+					},
+					{
+						"name": "STRUR",
+						"type": "char"
+					},
+					{
+						"name": "LTRMN",
+						"type": "char"
+					},
+					{
+						"name": "LTRUR",
+						"type": "char"
+					},
+					{
+						"name": "WAERS",
+						"type": "char"
+					},
+					{
+						"name": "AUFNR",
+						"type": "char"
+					},
+					{
+						"name": "VERID",
+						"type": "char"
+					},
+					{
+						"name": "RM_MATNR",
+						"type": "varchar"
+					},
+					{
+						"name": "RM_WERKS",
+						"type": "char"
+					},
+					{
+						"name": "SA_AUFNR",
+						"type": "char"
+					},
+					{
+						"name": "MATNR",
+						"type": "varchar"
+					},
+					{
+						"name": "REVLV",
+						"type": "char"
+					},
+					{
+						"name": "MATKL",
+						"type": "char"
+					},
+					{
+						"name": "PRDHA",
+						"type": "varchar"
+					},
+					{
+						"name": "KZKRI",
+						"type": "char"
+					},
+					{
+						"name": "KZDKZ",
+						"type": "char"
+					},
+					{
+						"name": "KUNUM",
+						"type": "char"
+					},
+					{
+						"name": "FEKNZ",
+						"type": "char"
+					},
+					{
+						"name": "MAKNZ",
+						"type": "char"
+					},
+					{
+						"name": "OBJNR",
+						"type": "char"
+					},
+					{
+						"name": "QMDAB",
+						"type": "char"
+					},
+					{
+						"name": "QMZAB",
+						"type": "char"
+					},
+					{
+						"name": "RBNR",
+						"type": "char"
+					},
+					{
+						"name": "RBNRI",
+						"type": "char"
+					},
+					{
+						"name": "INDTX",
+						"type": "char"
+					},
+					{
+						"name": "KZMLA",
+						"type": "char"
+					},
+					{
+						"name": "HERKZ",
+						"type": "char"
+					},
+					{
+						"name": "BEZDT",
+						"type": "char"
+					},
+					{
+						"name": "BEZUR",
+						"type": "char"
+					},
+					{
+						"name": "LIFNUM",
+						"type": "char"
+					},
+					{
+						"name": "BUNAME",
+						"type": "char"
+					},
+					{
+						"name": "VBELN",
+						"type": "char"
+					},
+					{
+						"name": "BSTNK",
+						"type": "varchar"
+					},
+					{
+						"name": "BSTDK",
+						"type": "char"
+					},
+					{
+						"name": "SPART",
+						"type": "char"
+					},
+					{
+						"name": "VKORG",
+						"type": "char"
+					},
+					{
+						"name": "VTWEG",
+						"type": "char"
+					},
+					{
+						"name": "ADRNR",
+						"type": "char"
+					},
+					{
+						"name": "AEZEIT",
+						"type": "char"
+					},
+					{
+						"name": "ERZEIT",
+						"type": "char"
+					},
+					{
+						"name": "MAWERK",
+						"type": "char"
+					},
+					{
+						"name": "QMKAT",
+						"type": "char"
+					},
+					{
+						"name": "QMGRP",
+						"type": "char"
+					},
+					{
+						"name": "QMCOD",
+						"type": "char"
+					},
+					{
+						"name": "AUSWIRK",
+						"type": "char"
+					},
+					{
+						"name": "TEILEV",
+						"type": "char"
+					},
+					{
+						"name": "PRUEFLOS",
+						"type": "decimal",
+						"precision": 12,
+						"scale": 2
+					},
+					{
+						"name": "CHARG",
+						"type": "char"
+					},
+					{
+						"name": "LGORTCHARG",
+						"type": "char"
+					},
+					{
+						"name": "LICHN",
+						"type": "char"
+					},
+					{
+						"name": "HERSTELLER",
+						"type": "char"
+					},
+					{
+						"name": "EMATNR",
+						"type": "varchar"
+					},
+					{
+						"name": "EKORG",
+						"type": "char"
+					},
+					{
+						"name": "BKGRP",
+						"type": "char"
+					},
+					{
+						"name": "LGORTVORG",
+						"type": "char"
+					},
+					{
+						"name": "FERTAUFNR",
+						"type": "char"
+					},
+					{
+						"name": "FERTAUFPL",
+						"type": "decimal",
+						"precision": 10,
+						"scale": 2
+					},
+					{
+						"name": "EBELN",
+						"type": "char"
+					},
+					{
+						"name": "EBELP",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 2
+					},
+					{
+						"name": "MJAHR",
+						"type": "decimal",
+						"precision": 4,
+						"scale": 2
+					},
+					{
+						"name": "MBLNR",
+						"type": "char"
+					},
+					{
+						"name": "MBLPO",
+						"type": "decimal",
+						"precision": 4,
+						"scale": 2
+					},
+					{
+						"name": "LS_KDAUF",
+						"type": "char"
+					},
+					{
+						"name": "LS_KDPOS",
+						"type": "decimal",
+						"precision": 6,
+						"scale": 2
+					},
+					{
+						"name": "LS_VBELN",
+						"type": "char"
+					},
+					{
+						"name": "LS_POSNR",
+						"type": "decimal",
+						"precision": 6,
+						"scale": 2
+					},
+					{
+						"name": "CROBJTY",
+						"type": "char"
+					},
+					{
+						"name": "ARBPL",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "ARBPLWERK",
+						"type": "char"
+					},
+					{
+						"name": "FEART",
+						"type": "char"
+					},
+					{
+						"name": "PNLKN",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "MGEIG",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "MGFRD",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "MGEIN",
+						"type": "char"
+					},
+					{
+						"name": "BZMNG",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "RKMNG",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "RGMNG",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "RKDAT",
+						"type": "char"
+					},
+					{
+						"name": "COAUFNR",
+						"type": "char"
+					},
+					{
+						"name": "QWRNUM",
+						"type": "varchar"
+					},
+					{
+						"name": "REFNUM",
+						"type": "varchar"
+					},
+					{
+						"name": "KDMAT",
+						"type": "varchar"
+					},
+					{
+						"name": "IDNLF",
+						"type": "varchar"
+					},
+					{
+						"name": "SERIALNR",
+						"type": "char"
+					},
+					{
+						"name": "KZLOESCH",
+						"type": "char"
+					},
+					{
+						"name": "CVP_XBLCK",
+						"type": "char"
+					},
+					{
+						"name": "PRODDAT",
+						"type": "char"
+					},
+					{
+						"name": "DEVICEID",
+						"type": "varchar"
+					},
+					{
+						"name": "VKBUR",
+						"type": "char"
+					},
+					{
+						"name": "VKGRP",
+						"type": "char"
+					},
+					{
+						"name": "AUTKZ",
+						"type": "char"
+					},
+					{
+						"name": "BEDID",
+						"type": "decimal",
+						"precision": 12,
+						"scale": 2
+					},
+					{
+						"name": "BEDZL",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "PROFIL_TYP",
+						"type": "char"
+					},
+					{
+						"name": "PROFIL_ID",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "HANDLE",
+						"type": "varchar"
+					},
+					{
+						"name": "TSEGFL",
+						"type": "char"
+					},
+					{
+						"name": "TSEGTP",
+						"type": "char"
+					},
+					{
+						"name": "TZONSO",
+						"type": "char"
+					},
+					{
+						"name": "TZONID",
+						"type": "char"
+					},
+					{
+						"name": "FUNKTION",
+						"type": "char"
+					},
+					{
+						"name": "INSTN",
+						"type": "char"
+					},
+					{
+						"name": "MNUMM",
+						"type": "decimal",
+						"precision": 24,
+						"scale": 2
+					},
+					{
+						"name": "OSSYS",
+						"type": "char"
+					},
+					{
+						"name": "DBSYS",
+						"type": "char"
+					},
+					{
+						"name": "REL",
+						"type": "char"
+					},
+					{
+						"name": "COMP",
+						"type": "char"
+					},
+					{
+						"name": "FRONT",
+						"type": "char"
+					},
+					{
+						"name": "SYSTYP",
+						"type": "char"
+					},
+					{
+						"name": "ADDID",
+						"type": "char"
+					},
+					{
+						"name": "ADDREL",
+						"type": "char"
+					},
+					{
+						"name": "TSTMP",
+						"type": "decimal",
+						"precision": 14,
+						"scale": 2
+					},
+					{
+						"name": "STATUS",
+						"type": "char"
+					},
+					{
+						"name": "ERDAT2",
+						"type": "char"
+					},
+					{
+						"name": "ERZEIT2",
+						"type": "char"
+					},
+					{
+						"name": "SYSID",
+						"type": "char"
+					},
+					{
+						"name": "MANDT2",
+						"type": "decimal",
+						"precision": 3,
+						"scale": 2
+					},
+					{
+						"name": "PSP_NR",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "ESTIMATED_COSTS",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "CLAIMED_COSTS",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "RESULT_COSTS",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "CHANCE",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 2
+					},
+					{
+						"name": "OPPONENT",
+						"type": "char"
+					},
+					{
+						"name": "KALNR",
+						"type": "decimal",
+						"precision": 12,
+						"scale": 2
+					},
+					{
+						"name": "KALVAR",
+						"type": "char"
+					},
+					{
+						"name": "OBJNR_REAL",
+						"type": "varchar"
+					},
+					{
+						"name": "OBJNR_STAT",
+						"type": "char"
+					},
+					{
+						"name": "DUMMY_QMEL_INCL_EEW_PS",
+						"type": "char"
+					},
+					{
+						"name": "PHASE",
+						"type": "char"
+					},
+					{
+						"name": "SGT_SCAT",
+						"type": "varchar"
+					},
+					{
+						"name": "CHANGEDDATETIME",
+						"type": "decimal",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "MHIO_ADDATE",
+						"type": "char"
+					},
+					{
+						"name": "MHIO_ADTIME",
+						"type": "char"
+					},
+					{
+						"name": "USERMODE",
+						"type": "char"
+					},
+					{
+						"name": "OBJNR2",
+						"type": "char"
+					},
+					{
+						"name": "LOGSYSTEM",
+						"type": "char"
+					},
+					{
+						"name": "MEQUI",
+						"type": "char"
+					},
+					{
+						"name": "SHN_OBJTY",
+						"type": "char"
+					},
+					{
+						"name": "SHN_OBJID",
+						"type": "decimal",
+						"precision": 8,
+						"scale": 2
+					},
+					{
+						"name": "SHN_FUNCT_LOC",
+						"type": "varchar"
+					},
+					{
+						"name": "SHN_EQUIPMENT",
+						"type": "char"
+					},
+					{
+						"name": "SHN_ORIGIN",
+						"type": "decimal",
+						"precision": 2,
+						"scale": 2
+					},
+					{
+						"name": "UII",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "QMEL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSql_I_PMNotifMaintenanceData')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabasecopilothack",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "MANDT",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCENOTIFICATION",
+						"type": "char"
+					},
+					{
+						"name": "MAINTOBJECTLOCACCTASSGMTNMBR",
+						"type": "char"
+					},
+					{
+						"name": "MALFUNCTIONEFFECT",
+						"type": "char"
+					},
+					{
+						"name": "EQUIPMENT",
+						"type": "char"
+					},
+					{
+						"name": "ASSEMBLY",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEPLANNINGPLANT",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEPLANNERGROUP",
+						"type": "char"
+					},
+					{
+						"name": "LOCATIONDESCRIPTION",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEOBJECTISDOWN",
+						"type": "char"
+					},
+					{
+						"name": "MALFUNCTIONSTARTDATE",
+						"type": "char"
+					},
+					{
+						"name": "MALFUNCTIONENDDATE",
+						"type": "char"
+					},
+					{
+						"name": "MALFUNCTIONSTARTTIME",
+						"type": "char"
+					},
+					{
+						"name": "MALFUNCTIONENDTIME",
+						"type": "char"
+					},
+					{
+						"name": "INSPECTIONDATE",
+						"type": "char"
+					},
+					{
+						"name": "INSPECTEDBYUSER",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEREVISION",
+						"type": "char"
+					},
+					{
+						"name": "MAINTOBJECTDOWNTIMEDURATION",
+						"type": "real",
+						"precision": 7
+					},
+					{
+						"name": "MAINTOBJDOWNTIMEDURATIONUNIT",
+						"type": "char"
+					},
+					{
+						"name": "SALESDOCUMENT",
+						"type": "char"
+					},
+					{
+						"name": "SALESDOCUMENTITEM",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MAINTENANCEPLAN",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEITEM",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEACTIVITYTYPE",
+						"type": "char"
+					},
+					{
+						"name": "RELEVANTFUNCTIONALLOCATION",
+						"type": "char"
+					},
+					{
+						"name": "RELEVANTEQUIPMENT",
+						"type": "char"
+					},
+					{
+						"name": "AVAILYBEFOREMALFUNCTIONPERCENT",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AVAILYAFTERMALFUNCTIONPERCENT",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "AVAILYAFTERCONCLUSIONPERCENT",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "SYSTCONDITIONBEFOREMALFUNCTION",
+						"type": "char"
+					},
+					{
+						"name": "SYSTCONDITIONAFTERMALFUNCTION",
+						"type": "char"
+					},
+					{
+						"name": "SYSTCONDITIONAFTERCOMPLETION",
+						"type": "char"
+					},
+					{
+						"name": "LATESTACCEPTABLECOMPLETIONDATE",
+						"type": "char"
+					},
+					{
+						"name": "NOTIFICATIONPERSONRESPONSIBLE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFPROCESSPHASECODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFPROCESSSUBPHASECODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFREJECTIONREASONCODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTENANCEPLANCALLNUMBER",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "MAINTENANCETASKLISTTYPE",
+						"type": "char"
+					},
+					{
+						"name": "TASKLISTGROUP",
+						"type": "char"
+					},
+					{
+						"name": "TASKLISTGROUPCOUNTER",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFDETECTIONCATALOG",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFDETECTIONCODEGROUP",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFDETECTIONCODE",
+						"type": "char"
+					},
+					{
+						"name": "MAINTNOTIFPROCESSINGCONTEXT",
+						"type": "char"
+					},
+					{
+						"name": "PREVIOUSFINALDUEDATE",
+						"type": "char"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "I_PMNotifMaintenanceData"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_kff')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "IMAINTNOTIF",
+						"folderPath": "sap/pm",
+						"fileSystem": "fssapintegrationhacks"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/syn-sap-integration-hacks-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Parquet1')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "spfli",
+						"folderPath": "sap/flightmodel/spfli",
+						"fileSystem": "fssapintegrationhacks"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/syn-sap-integration-hacks-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SapTableQMEL')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SapTable",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SapTableResource",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "QMEL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapTable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SapTableSPFLI')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SapTable",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SapTableResource",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "SPFLI"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapTable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SapTable_IPMNTFMAINTDATA')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SapTable",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SapTableResource",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "IPMNTFMAINTDATA"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapTable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_kff')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SapTable",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SapTableResource",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "IMAINTNOTIF"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapTable')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureSqlDatabasecopilothack')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('AzureSqlDatabasecopilothack_properties_typeProperties_server')]",
+					"database": "[parameters('AzureSqlDatabasecopilothack_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "ServicePrincipal",
+					"servicePrincipalId": "[parameters('AzureSqlDatabasecopilothack_properties_typeProperties_servicePrincipalId')]",
+					"servicePrincipalCredential": {
+						"type": "SecureString",
+						"value": "[parameters('AzureSqlDatabasecopilothack_servicePrincipalCredential')]"
+					},
+					"tenant": "[parameters('AzureSqlDatabasecopilothack_properties_typeProperties_tenant')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SapOdp1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SapOdp",
+				"typeProperties": {
+					"clientId": "[parameters('SapOdp1_properties_typeProperties_clientId')]",
+					"sncMode": false,
+					"userName": "[parameters('SapOdp1_properties_typeProperties_userName')]",
+					"subscriberName": "LOAD2SQL",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SapOdp1_password')]"
+					},
+					"server": "[parameters('SapOdp1_properties_typeProperties_server')]",
+					"systemNumber": "[parameters('SapOdp1_properties_typeProperties_systemNumber')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-sap-cal-syn",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/ir-sap-cal-syn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SapTable')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SapTable",
+				"typeProperties": {
+					"clientId": "[parameters('SapTable_properties_typeProperties_clientId')]",
+					"sncMode": false,
+					"userName": "[parameters('SapTable_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SapTable_password')]"
+					},
+					"server": "[parameters('SapTable_properties_typeProperties_server')]",
+					"systemNumber": "[parameters('SapTable_properties_typeProperties_systemNumber')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-sap-cal-syn",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/ir-sap-cal-syn')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/syn-sap-integration-hacks-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('syn-sap-integration-hacks-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/syn-sap-integration-hacks-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('syn-sap-integration-hacks-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ir-sap-cal-syn')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Dataflow1')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "SapOdp1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "IMAINTPLANDATA"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+								"type": "LinkedServiceReference"
+							},
+							"name": "DeltaIMAINTPLANDATA"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     store: 'SapOdp',",
+						"     format: 'sapObject',",
+						"     staged: true,",
+						"     context: 'ABAP_CDS',",
+						"     objectName: 'IMAINTPLANDATA$P',",
+						"     readMode: 'fullLoad',",
+						"     fixDecimalPrecision: true) ~> IMAINTPLANDATA",
+						"IMAINTPLANDATA sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'delta',",
+						"     fileSystem: 'fssapintegrationhacks',",
+						"     folderPath: 'sap/pm',",
+						"     mergeSchema: false,",
+						"     autoCompact: false,",
+						"     optimizedWrite: false,",
+						"     vacuum: 0,",
+						"     deletable: false,",
+						"     insertable: true,",
+						"     updateable: false,",
+						"     upsertable: false,",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> DeltaIMAINTPLANDATA"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapOdp1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/syn-sap-integration-hacks-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Df_I_MaintNotificationActyData')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "SapOdp1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "INOTIFACTYDATA"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabasecopilothack",
+								"type": "LinkedServiceReference"
+							},
+							"name": "MaintNotificationActyData"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     store: 'SapOdp',",
+						"     format: 'sapObject',",
+						"     staged: true,",
+						"     context: 'ABAP_CDS',",
+						"     objectName: 'INOTIFACTYDATA$F',",
+						"     readMode: 'fullAndIncrementalLoad',",
+						"     keys: ['MAINTNOTIFICATIONACTIVITY','MAINTENANCENOTIFICATION'],",
+						"     fixDecimalPrecision: true) ~> INOTIFACTYDATA",
+						"INOTIFACTYDATA sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'dbo',",
+						"     tableName: 'I_MaintNotificationActyData',",
+						"     insertable: true,",
+						"     updateable: true,",
+						"     deletable: true,",
+						"     upsertable: true,",
+						"     keys:['MAINTNOTIFICATIONACTIVITY','MAINTENANCENOTIFICATION'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> MaintNotificationActyData"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapOdp1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Df_I_MaintNotificationCauseData')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "SapOdp1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "INOTIFCAUSEDATA"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabasecopilothack",
+								"type": "LinkedServiceReference"
+							},
+							"name": "MaintNotificationCauseData"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     store: 'SapOdp',",
+						"     format: 'sapObject',",
+						"     staged: true,",
+						"     context: 'ABAP_CDS',",
+						"     objectName: 'INOTIFCAUSEDATA$F',",
+						"     readMode: 'fullAndIncrementalLoad',",
+						"     keys: ['MAINTENANCENOTIFICATIONCAUSE','MAINTENANCENOTIFICATION','MAINTENANCENOTIFICATIONITEM'],",
+						"     fixDecimalPrecision: true) ~> INOTIFCAUSEDATA",
+						"INOTIFCAUSEDATA sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'dbo',",
+						"     tableName: 'I_MaintNotificationCauseData',",
+						"     insertable: true,",
+						"     updateable: true,",
+						"     deletable: true,",
+						"     upsertable: true,",
+						"     keys:['MAINTENANCENOTIFICATIONCAUSE','MAINTENANCENOTIFICATION','MAINTENANCENOTIFICATIONITEM'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> MaintNotificationCauseData"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapOdp1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Df_I_MaintNotificationItemData')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "SapOdp1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "INOTIFITEMDATA"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabasecopilothack",
+								"type": "LinkedServiceReference"
+							},
+							"name": "MaintNotificationItemData1"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     store: 'SapOdp',",
+						"     format: 'sapObject',",
+						"     staged: true,",
+						"     context: 'ABAP_CDS',",
+						"     objectName: 'INOTIFITEMDATA$F',",
+						"     readMode: 'fullAndIncrementalLoad',",
+						"     keys: ['MAINTENANCENOTIFICATIONITEM','MAINTENANCENOTIFICATION'],",
+						"     fixDecimalPrecision: true) ~> INOTIFITEMDATA",
+						"INOTIFITEMDATA sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'dbo',",
+						"     tableName: 'I_MaintNotificationItemData',",
+						"     insertable: true,",
+						"     updateable: true,",
+						"     deletable: true,",
+						"     upsertable: true,",
+						"     keys:['MAINTENANCENOTIFICATION','MAINTENANCENOTIFICATIONITEM'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> MaintNotificationItemData1"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapOdp1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Dt_I_MaintNotificationTaskData')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"linkedService": {
+								"referenceName": "SapOdp1",
+								"type": "LinkedServiceReference"
+							},
+							"name": "INOTIFTASKDATA"
+						}
+					],
+					"sinks": [
+						{
+							"linkedService": {
+								"referenceName": "AzureSqlDatabasecopilothack",
+								"type": "LinkedServiceReference"
+							},
+							"name": "MaintNotificationTaskData"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     store: 'SapOdp',",
+						"     format: 'sapObject',",
+						"     staged: true,",
+						"     context: 'ABAP_CDS',",
+						"     objectName: 'INOTIFTASKDATA$F',",
+						"     readMode: 'fullAndIncrementalLoad',",
+						"     keys: ['MAINTENANCENOTIFICATIONTASK','MAINTENANCENOTIFICATION'],",
+						"     fixDecimalPrecision: true) ~> INOTIFTASKDATA",
+						"INOTIFTASKDATA sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'table',",
+						"     store: 'sqlserver',",
+						"     schemaName: 'dbo',",
+						"     tableName: 'I_MaintNotificationTaskData',",
+						"     insertable: true,",
+						"     updateable: true,",
+						"     deletable: true,",
+						"     upsertable: true,",
+						"     keys:['MAINTENANCENOTIFICATIONTASK','MAINTENANCENOTIFICATION'],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     errorHandlingOption: 'stopOnFirstError') ~> MaintNotificationTaskData"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/SapOdp1')]",
+				"[concat(variables('workspaceId'), '/linkedServices/AzureSqlDatabasecopilothack')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
+			"type": "Microsoft.Synapse/workspaces/credentials",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://dlssapintegrationhacks.dfs.core.windows.net/fssapintegrationhacks/sap/flightmodel/spfli/**',\n        FORMAT = 'PARQUET'\n    ) AS [result]\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		}
+	]
+}

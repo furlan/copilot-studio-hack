@@ -1,0 +1,60 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "syn-sap-integration-hacks"
+		},
+		"AzureSqlDatabasecopilothack_servicePrincipalCredential": {
+			"value": ""
+		},
+		"SapOdp1_password": {
+			"value": ""
+		},
+		"SapTable_password": {
+			"value": ""
+		},
+		"syn-sap-integration-hacks-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:syn-sap-integration-hacks.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_server": {
+			"value": "copilothack.database.windows.net"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_database": {
+			"value": "sqlcopilothack"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_servicePrincipalId": {
+			"value": "c1349d36-bdc4-4186-b409-010850e5c3c1"
+		},
+		"AzureSqlDatabasecopilothack_properties_typeProperties_tenant": {
+			"value": "16b3c013-d300-468d-ac64-7eda0820b6d3"
+		},
+		"SapOdp1_properties_typeProperties_clientId": {
+			"value": "100"
+		},
+		"SapOdp1_properties_typeProperties_userName": {
+			"value": "ODPUSER"
+		},
+		"SapOdp1_properties_typeProperties_server": {
+			"value": "10.0.0.84"
+		},
+		"SapOdp1_properties_typeProperties_systemNumber": {
+			"value": "00"
+		},
+		"SapTable_properties_typeProperties_clientId": {
+			"value": "100"
+		},
+		"SapTable_properties_typeProperties_userName": {
+			"value": "ODPUSER"
+		},
+		"SapTable_properties_typeProperties_server": {
+			"value": "10.0.0.84"
+		},
+		"SapTable_properties_typeProperties_systemNumber": {
+			"value": "00"
+		},
+		"syn-sap-integration-hacks-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://dlssapintegrationhacks.dfs.core.windows.net"
+		}
+	}
+}
