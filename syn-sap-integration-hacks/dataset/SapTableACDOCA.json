@@ -1,0 +1,15 @@
+{
+	"name": "SapTableACDOCA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SapTable",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SapTableResource",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "ACDOCA"
+		}
+	}
+}

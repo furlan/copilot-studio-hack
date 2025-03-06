@@ -1,0 +1,20 @@
+{
+	"name": "ParquetACDOCA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "syn-sap-integration-hacks-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sap/ACDOCA",
+				"fileSystem": "fssapintegrationhacks"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
